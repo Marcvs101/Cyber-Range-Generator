@@ -4,22 +4,22 @@
         {
             "id":"openssh",
             "name":"openssh",
-            "string":"# Install and configure openssh\n RUN apt install openssh-server sudo -y\n RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test\n RUN echo 'test:test' | chpasswd\n RUN service ssh start\n\n EXPOSE 22",
-            "entrypoint":"# Entrypoint\n CMD [\"/usr/sbin/sshd\",\"-D\"]",
+            "string":"# Install and configure openssh \nRUN apt install openssh-server sudo -y \nRUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test \nRUN echo \"test:test\" | chpasswd \nRUN service ssh start \n\nEXPOSE 22",
+            "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/sshd\",\"-D\"]",
             "shell_command":"/usr/sbin/sshd -D"
         },
         {
             "id":"apache2",
             "name":"apache2",
-            "string":"# Install and configure apache\n RUN apt install apache2 -y\n RUN apt install apache2-utils -y\n\n EXPOSE 80",
-            "entrypoint":"# Entrypoint\n CMD [\"apache2ctl\", \"-D\", \"FOREGROUND\"]",
+            "string":"# Install and configure apache \nRUN apt install apache2 -y \nRUN apt install apache2-utils -y \n\nEXPOSE 80",
+            "entrypoint":"# Entrypoint \nCMD [\"apache2ctl\", \"-D\", \"FOREGROUND\"]",
             "shell_command":"apache2ctl -D FOREGROUND"
         },
         {
             "id":"apache2",
             "name":"apache2",
-            "string":"# Install and configure apache\n RUN apt install apache2 -y\n RUN apt install apache2-utils -y\n\n EXPOSE 80",
-            "entrypoint":"# Entrypoint\n CMD [\"apache2ctl\", \"-D\", \"FOREGROUND\"]",
+            "string":"# Install and configure apache \nRUN apt install apache2 -y \nRUN apt install apache2-utils -y \n\nEXPOSE 80",
+            "entrypoint":"# Entrypoint \nCMD [\"apache2ctl\", \"-D\", \"FOREGROUND\"]",
             "shell_command":"apache2ctl -D FOREGROUND"
         }
     ]
