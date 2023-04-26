@@ -1,0 +1,81 @@
+version: '2'
+
+services:
+  scanner:
+    image: tenableofficial/nessus:latest
+    container_name: scanner
+    #environment:
+    #  USERNAME: user
+    #  PASSWORD: password
+    #  ACTIVATION_CODE: L6W5-W5XA-KY5R-A5UV-QYQN
+    ports:
+      - "8835:8834"
+    networks:
+      cyberrange:
+        ipv4_address: 172.25.0.10
+
+  node:
+    image: node:18.16.0-buster
+    container_name: node_official
+    networks:
+      cyberrange:
+        ipv4_address: 172.25.0.11
+
+  neo4j:
+    image: neo4j:4.0.0-enterprise
+    container_name: neo4j_official
+    environment:
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: yes
+    networks:
+      cyberrange:
+        ipv4_address: 172.25.0.12
+
+  postgres:
+    image: postgres:9.6.23-bullseye
+    container_name: postgres_official
+    environment:
+      POSTGRES_USER: elephant
+      POSTGRES_PASSWORD: smarty_pants
+      POSTGRES_DB: elephant
+    networks:
+      cyberrange:
+        ipv4_address: 172.25.0.13
+
+  tenable:
+    image: tenableofficial/nessus:8.13.1
+    container_name: nessus_official
+    networks:
+      cyberrange:
+        ipv4_address: 172.25.0.14
+
+  mariadb:
+    image: mariadb:10.3.24
+    container_name: mariadb_official
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+    networks:
+      cyberrange:
+        ipv4_address: 172.25.0.15
+
+  custom_1:
+    build: custom_1
+    container_name: custom_1
+    networks:
+      cyberrange:
+        ipv4_address: 172.25.0.16
+
+  custom_2:
+    build: custom_2
+    container_name: custom_2
+    networks:
+      cyberrange:
+        ipv4_address: 172.25.0.17
+
+networks:
+  cyberrange:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.25.0.0/16
+          gateway: 172.25.0.1
