@@ -28,6 +28,13 @@
             "string":"# Install and configure mariadb \nRUN apt install mariadb-server\n RUN systemctl start mariadb.service \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"mariadbd\"]",
             "shell_command":"mariadbd"
+        },
+        {
+            "id":"nginx",
+            "name":"nginx",
+            "string":"# Install and configure nginx \nRUN apt install nginx \n\nEXPOSE 80",
+            "entrypoint":"# Entrypoint \nCMD [\"nginx -g daemon off\"]",
+            "shell_command":"nginx -g daemon off"
         }
     ]
 }
