@@ -5,7 +5,7 @@
             "id":"openssh",
             "name":"openssh",
             "port":22,
-            "string":"# Install and configure openssh \nRUN apt install openssh-server sudo -y \nRUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test \nRUN echo \"test:test\" | chpasswd \nRUN service ssh start \n\nEXPOSE 22",
+            "string":"# Install and configure openssh \nRUN apt install openssh-server -y \nRUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo test \nRUN echo \"test:test\" | chpasswd \nRUN service ssh start \n\nEXPOSE 22",
             "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/sshd\",\"-D\"]",
             "shell_commands":["/usr/sbin/sshd -D"]
         },
@@ -21,7 +21,7 @@
             "id":"postgresql",
             "name":"postgresql",
             "port":5432,
-            "string":"# Install and configure postgresql \nRUN apt install postgresql postgresql-contrib \nRUN systemctl start postgresql.service \n\nEXPOSE 5432",
+            "string":"# Install and configure postgresql \nRUN apt install postgresql postgresql-contrib -y \nRUN systemctl start postgresql.service \n\nEXPOSE 5432",
             "entrypoint":"# Entrypoint \nCMD [\"postgres\"]",
             "shell_commands":["postgres"]
         },
@@ -29,7 +29,7 @@
             "id":"mariadb",
             "name":"mariadb",
             "port":3306,
-            "string":"# Install and configure mariadb \nRUN apt install mariadb-server \nRUN systemctl start mariadb.service \n\nEXPOSE 3306",
+            "string":"# Install and configure mariadb \nRUN apt install mariadb-server -y \n\nEXPOSE 3306",
             "entrypoint":"# Entrypoint \nCMD [\"mariadbd\"]",
             "shell_commands":["mariadbd"]
         },
@@ -37,7 +37,7 @@
             "id":"nginx",
             "name":"nginx",
             "port":80,
-            "string":"# Install and configure nginx \nRUN apt install nginx \n\nEXPOSE 80",
+            "string":"# Install and configure nginx \nRUN apt install nginx -y \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"nginx -g daemon off\"]",
             "shell_commands":["service nginx start"]
         },
@@ -45,9 +45,9 @@
             "id":"vsftpd",
             "name":"vsftpd",
             "port":20,
-            "string":"# Install and configure vsftpd \nRUN apt install vsftpd \nRUN useradd -m testuser \nRUN passwd testuser \nRUN ufw allow 20/tcp \nRUN ufw allow 21/tcp \n\nEXPOSE 20 \nEXPOSE 21",
+            "string":"# Install and configure vsftpd \nRUN apt install vsftpd -y \nRUN useradd -m testuser \nRUN echo \"testuser:testuser\" | chpasswd \n\nEXPOSE 20 \nEXPOSE 21",
             "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/vsftpd\"]",
-            "shell_commands":["systemctl start vsftpd","systemctl enable vsftpd"]
+            "shell_commands":["/usr/sbin/vsftpd"]
         }
     ]
 }
