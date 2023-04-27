@@ -66,13 +66,24 @@ host_to_service = dict()
 for host_id in host_to_operating_system:
     host_to_service[host_id] = list()
 
-    selectable_services = list(application_dictionary["application_list"])
+    selectable_services = application_dictionary["application_list"].copy()
     # TODO have different list for different OS
 
+    occupied_ports = set()
     for service_number in range(SERVICES_PER_HOST_NUMBER):
-        chosen_service = random.choice(selectable_services)
-        selectable_services.remove(chosen_service)
-        host_to_service[host_id].append(chosen_service)
+        if len(selectable_services) > 0:
+            chosen_service = random.choice(selectable_services)
+            while (len(selectable_services)>0) and (chosen_service["port"] in occupied_ports):
+                selectable_services.remove(chosen_service)
+                if len(selectable_services) == 0:
+                    chosen_service = None
+                else:
+                    chosen_service = random.choice(selectable_services)
+
+            if chosen_service != None:
+                selectable_services.remove(chosen_service)
+                occupied_ports.add(chosen_service["port"])
+                host_to_service[host_id].append(chosen_service)
 
 
 

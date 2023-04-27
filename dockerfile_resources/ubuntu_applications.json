@@ -4,6 +4,7 @@
         {
             "id":"openssh",
             "name":"openssh",
+            "port":22,
             "string":"# Install and configure openssh \nRUN apt install openssh-server sudo -y \nRUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test \nRUN echo \"test:test\" | chpasswd \nRUN service ssh start \n\nEXPOSE 22",
             "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/sshd\",\"-D\"]",
             "shell_command":"/usr/sbin/sshd -D"
@@ -11,6 +12,7 @@
         {
             "id":"apache2",
             "name":"apache2",
+            "port":80,
             "string":"# Install and configure apache \nRUN apt install apache2 -y \nRUN apt install apache2-utils -y \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"apache2ctl\", \"-D\", \"FOREGROUND\"]",
             "shell_command":"apache2ctl -D FOREGROUND"
@@ -18,23 +20,26 @@
         {
             "id":"postgresql",
             "name":"postgresql",
-            "string":"# Install and configure postgresql \nRUN apt install postgresql postgresql-contrib \nRUN systemctl start postgresql.service \n\nEXPOSE 80",
+            "port":5432,
+            "string":"# Install and configure postgresql \nRUN apt install postgresql postgresql-contrib \nRUN systemctl start postgresql.service \n\nEXPOSE 5432",
             "entrypoint":"# Entrypoint \nCMD [\"postgres\"]",
             "shell_command":"postgres"
         },
         {
             "id":"mariadb",
             "name":"mariadb",
-            "string":"# Install and configure mariadb \nRUN apt install mariadb-server\n RUN systemctl start mariadb.service \n\nEXPOSE 80",
+            "port":3306,
+            "string":"# Install and configure mariadb \nRUN apt install mariadb-server \nRUN systemctl start mariadb.service \n\nEXPOSE 3306",
             "entrypoint":"# Entrypoint \nCMD [\"mariadbd\"]",
             "shell_command":"mariadbd"
         },
         {
             "id":"nginx",
             "name":"nginx",
+            "port":80,
             "string":"# Install and configure nginx \nRUN apt install nginx \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"nginx -g daemon off\"]",
-            "shell_command":"nginx -g daemon off"
+            "shell_command":"service nginx start"
         }
     ]
 }
