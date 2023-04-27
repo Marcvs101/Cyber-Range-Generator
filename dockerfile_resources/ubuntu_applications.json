@@ -40,6 +40,14 @@
             "string":"# Install and configure nginx \nRUN apt install nginx \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"nginx -g daemon off\"]",
             "shell_command":"service nginx start"
+        },
+        {
+            "id":"vsftpd",
+            "name":"vsftpd",
+            "port":20,
+            "string":"# Install and configure vsftpd \nRUN apt install vsftpd \nRUN useradd -m testuser \nRUN passwd testuser \nRUN ufw allow 20/tcp \nRUN ufw allow 21/tcp \n\nEXPOSE 20 \nEXPOSE 21",
+            "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/vsftpd\"]",
+            "shell_command":"systemctl start vsftpd \nsystemctl enable vsftpd"
         }
     ]
 }
