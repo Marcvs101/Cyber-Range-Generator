@@ -135,8 +135,9 @@ for host_id in host_to_service:
     f.write("RUN touch startup.sh\n")
     f.write("RUN chmod +x startup.sh")
     for application in host_to_service[host_id]:
-        f.write("RUN echo "+application["shell_command"]+" & > startup.sh")
-        f.write("\n")
+        for command in application["shell_commands"]:
+            f.write("RUN echo "+command+" & > startup.sh")
+            f.write("\n")
     f.write("\n")
 
     # # final command

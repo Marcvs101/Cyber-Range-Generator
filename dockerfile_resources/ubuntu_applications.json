@@ -7,7 +7,7 @@
             "port":22,
             "string":"# Install and configure openssh \nRUN apt install openssh-server sudo -y \nRUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test \nRUN echo \"test:test\" | chpasswd \nRUN service ssh start \n\nEXPOSE 22",
             "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/sshd\",\"-D\"]",
-            "shell_command":"/usr/sbin/sshd -D"
+            "shell_commands":["/usr/sbin/sshd -D"]
         },
         {
             "id":"apache2",
@@ -15,7 +15,7 @@
             "port":80,
             "string":"# Install and configure apache \nRUN apt install apache2 -y \nRUN apt install apache2-utils -y \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"apache2ctl\", \"-D\", \"FOREGROUND\"]",
-            "shell_command":"apache2ctl -D FOREGROUND"
+            "shell_commands":["apache2ctl -D FOREGROUND"]
         },
         {
             "id":"postgresql",
@@ -23,7 +23,7 @@
             "port":5432,
             "string":"# Install and configure postgresql \nRUN apt install postgresql postgresql-contrib \nRUN systemctl start postgresql.service \n\nEXPOSE 5432",
             "entrypoint":"# Entrypoint \nCMD [\"postgres\"]",
-            "shell_command":"postgres"
+            "shell_commands":["postgres"]
         },
         {
             "id":"mariadb",
@@ -31,7 +31,7 @@
             "port":3306,
             "string":"# Install and configure mariadb \nRUN apt install mariadb-server \nRUN systemctl start mariadb.service \n\nEXPOSE 3306",
             "entrypoint":"# Entrypoint \nCMD [\"mariadbd\"]",
-            "shell_command":"mariadbd"
+            "shell_commands":["mariadbd"]
         },
         {
             "id":"nginx",
@@ -39,7 +39,7 @@
             "port":80,
             "string":"# Install and configure nginx \nRUN apt install nginx \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"nginx -g daemon off\"]",
-            "shell_command":"service nginx start"
+            "shell_commands":["service nginx start"]
         },
         {
             "id":"vsftpd",
@@ -47,7 +47,7 @@
             "port":20,
             "string":"# Install and configure vsftpd \nRUN apt install vsftpd \nRUN useradd -m testuser \nRUN passwd testuser \nRUN ufw allow 20/tcp \nRUN ufw allow 21/tcp \n\nEXPOSE 20 \nEXPOSE 21",
             "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/vsftpd\"]",
-            "shell_command":"systemctl start vsftpd \nsystemctl enable vsftpd"
+            "shell_commands":["systemctl start vsftpd","systemctl enable vsftpd"]
         }
     ]
 }
