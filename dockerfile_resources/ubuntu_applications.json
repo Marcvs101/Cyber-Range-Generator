@@ -21,7 +21,7 @@
             "id":"postgresql",
             "name":"postgresql",
             "port":5432,
-            "string":"# Install and configure postgresql \nRUN apt install postgresql -y \nRUN postgresql-contrib -y \n\nEXPOSE 5432",
+            "string":"# Install and configure postgresql \nARG DEBIAN_FRONTEND=noninteractive \nENV TZ=Etc/UTC \nRUN apt install postgresql postgresql-contrib -y \n\nEXPOSE 5432",
             "entrypoint":"# Entrypoint \nCMD [\"postgres\"]",
             "shell_commands":["postgres"]
         },
