@@ -134,10 +134,12 @@ for host_id in host_to_service:
     f.write("# Create runfile\n")
     f.write("RUN touch startup.sh\n")
     f.write("RUN chmod +x startup.sh\n")
+    f.write('RUN echo "#! /bin/bash" >> startup.sh\n')
     for application in host_to_service[host_id]:
         for command in application["shell_commands"]:
-            f.write("RUN echo "+command+" & > startup.sh")
+            f.write('RUN echo "'+command+' &" >> startup.sh')
             f.write("\n")
+    f.write('RUN echo "tail -f /dev/null" >> startup.sh\n')
     f.write("\n")
 
     # # final command
