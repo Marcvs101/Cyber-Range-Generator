@@ -29,7 +29,7 @@
             "id":"mariadb",
             "name":"mariadb",
             "port":3306,
-            "string":"# Install and configure mariadb \nRUN apt install mariadb-server -y \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/127.0.0.1/0.0.0.0/\" /etc/mysql/mariadb.conf.d/50-server.cnf \n RUN echo \"skip-networking=0\" >> /etc/mysql/conf.d/mysql.cnf \n RUN echo \"skip-bind-address\" >> /etc/mysql/conf.d/mysql.cnf \n\nEXPOSE 3306",
+            "string":"# Install and configure mariadb \nRUN apt install mariadb-server -y \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/127.0.0.1/0.0.0.0/\" /etc/mysql/mariadb.conf.d/50-server.cnf \nRUN echo \"skip-networking=0\" >> /etc/mysql/conf.d/mysql.cnf \nRUN echo \"skip-bind-address\" >> /etc/mysql/conf.d/mysql.cnf \n\nEXPOSE 3306",
             "entrypoint":"# Entrypoint \nCMD [\"mariadbd\"]",
             "shell_commands":["service mariadb start"]
         },
