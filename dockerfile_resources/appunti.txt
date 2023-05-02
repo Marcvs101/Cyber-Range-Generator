@@ -1,0 +1,25 @@
+Abbiamo quattro applicativi in croce
+
+- openssh
+- vsftpd
+- apache2
+- nginx
+
+Questi quattro si bindano senza problemi e fanno quello che devono fare
+
+
+ActiveMQ non si installa facilmente
+L'archivio su apt install è incompleto e ti dicono di scaricare uno zip con una versione specifica
+L'avessi saputo prima non avrei buttato il pomeriggio
+
+Postgres e Mariadb non si bindano ad una porta
+A partire partono e lavorano benissimo in locale
+So che possono ascoltare anche su una porta
+Ho seguito i sacri testi
+Ho fatto TUTTO, ma non ci si bindano
+
+
+In tutto questo
+
+Nessus restituisce due CVE, su come ubuntu gestisce le redirect..
+Gli applicativi sembrano puliti..
