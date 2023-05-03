@@ -18,22 +18,6 @@
             "shell_commands":["apache2ctl -D FOREGROUND"]
         },
         {
-            "id":"postgresql",
-            "name":"postgresql",
-            "port":5432,
-            "string":"# Install and configure postgresql \nARG DEBIAN_FRONTEND=noninteractive \nENV TZ=Etc/UTC \nRUN apt install postgresql postgresql-contrib -y \nRUN cd /etc/postgresql/*; echo \"listen_addresses = '*'\" >> main/postgresql.conf \nRUN cd /etc/postgresql/*; echo \"# TYPE DATABASE USER ADDRESS METHOD\" >> main/pg_hba.conf \nRUN cd /etc/postgresql/*; echo \"host all all 0.0.0.0/0 md5\" >> main/pg_hba.conf \nRUN cd /etc/postgresql/*; echo \"host all all ::/0 md5\" >> main/pg_hba.conf \n\nEXPOSE 5432",
-            "entrypoint":"# Entrypoint \nCMD [\"postgres\"]",
-            "shell_commands":["service postgresql start"]
-        },
-        {
-            "id":"mariadb",
-            "name":"mariadb",
-            "port":3306,
-            "string":"# Install and configure mariadb \nRUN apt install mariadb-server -y \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/127.0.0.1/0.0.0.0/\" /etc/mysql/mariadb.conf.d/50-server.cnf; exit 0 \nRUN echo \"skip-networking=0\" >> /etc/mysql/conf.d/mysql.cnf \nRUN echo \"skip-bind-address\" >> /etc/mysql/conf.d/mysql.cnf \n\nEXPOSE 3306",
-            "entrypoint":"# Entrypoint \nCMD [\"mariadbd\"]",
-            "shell_commands":["service mariadb start"]
-        },
-        {
             "id":"nginx",
             "name":"nginx",
             "port":80,
