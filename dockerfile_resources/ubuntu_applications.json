@@ -4,7 +4,8 @@
         {
             "id":"openssh",
             "name":"openssh",
-            "port":22,
+            "required":true,
+            "port":[22],
             "string":"# Install and configure openssh \nARG DEBIAN_FRONTEND=noninteractive \nENV TZ=Etc/UTC \nRUN apt install openssh-server -y \nRUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo test \nRUN echo \"test:test\" | chpasswd \nRUN service ssh start \n\nEXPOSE 22",
             "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/sshd\",\"-D\"]",
             "shell_commands":["/usr/sbin/sshd -D"]
@@ -12,7 +13,8 @@
         {
             "id":"apache2",
             "name":"apache2",
-            "port":80,
+            "required":false,
+            "port":[80],
             "string":"# Install and configure apache \nRUN apt install apache2 -y \nRUN apt install apache2-utils -y \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"apache2ctl\", \"-D\", \"FOREGROUND\"]",
             "shell_commands":["apache2ctl -D FOREGROUND"]
@@ -20,7 +22,8 @@
         {
             "id":"nginx",
             "name":"nginx",
-            "port":80,
+            "required":false,
+            "port":[80],
             "string":"# Install and configure nginx \nRUN apt install nginx -y \n\nEXPOSE 80",
             "entrypoint":"# Entrypoint \nCMD [\"nginx -g daemon off\"]",
             "shell_commands":["service nginx start"]
@@ -28,10 +31,48 @@
         {
             "id":"vsftpd",
             "name":"vsftpd",
-            "port":20,
+            "required":false,
+            "port":[20,21],
             "string":"# Install and configure vsftpd \nRUN apt install vsftpd -y \nRUN useradd -m testuser \nRUN echo \"testuser:testuser\" | chpasswd \n\nEXPOSE 20 \nEXPOSE 21",
             "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/vsftpd\"]",
             "shell_commands":["/usr/sbin/vsftpd"]
+        },
+        {
+            "id":"postgresql",
+            "name":"postgresql",
+            "required":false,
+            "port":[5432],
+            "string":"# Install and configure postgresql \nARG DEBIAN_FRONTEND=noninteractive \nENV TZ=Etc/UTC \nRUN apt install postgresql postgresql-contrib -y \nRUN cd /etc/postgresql/*; echo \"listen_addresses = '*'\" >> main/postgresql.conf \nRUN cd /etc/postgresql/*; echo \"# TYPE DATABASE USER ADDRESS METHOD\" >> main/pg_hba.conf \nRUN cd /etc/postgresql/*; echo \"host all all 0.0.0.0/0 md5\" >> main/pg_hba.conf \nRUN cd /etc/postgresql/*; echo \"host all all ::/0 md5\" >> main/pg_hba.conf \n\nEXPOSE 5432",
+            "entrypoint":"# Entrypoint \nCMD [\"postgres\"]",
+            "shell_commands":["service postgresql start"]
+        },
+        {
+            "id":"mariadb",
+            "name":"mariadb",
+            "required":false,
+            "port":[3306],
+            "string":"# Install and configure mariadb \nRUN apt install mariadb-server -y \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/127.0.0.1/0.0.0.0/\" /etc/mysql/mariadb.conf.d/50-server.cnf; exit 0 \nRUN echo \"skip-networking=0\" >> /etc/mysql/conf.d/mysql.cnf \nRUN echo \"skip-bind-address\" >> /etc/mysql/conf.d/mysql.cnf \n\nEXPOSE 3306",
+            "entrypoint":"# Entrypoint \nCMD [\"mariadbd\"]",
+            "shell_commands":["service mariadb start"]
+        },
+        {
+            "id":"firefox",
+            "name":"firefox",
+            "required":false,
+            "port":[],
+            "string":"# Install and configure firefox \nRUN apt install firefox -y",
+            "entrypoint":"# Entrypoint \nCMD [\"firefox\"]",
+            "shell_commands":["firefox"]
+        },
+        {
+            "id":"postfix",
+            "name":"postfix",
+            "required":false,
+            "port":[25],
+            "string":"# Install and configure postfix \nRUN apt install postfix -y",
+            "entrypoint":"# Entrypoint \nCMD [\"firefox\"]",
+            "shell_commands":["firefox"]
         }
+        
     ]
 }

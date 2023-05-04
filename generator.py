@@ -9,7 +9,7 @@ import os
 RANDOMSEED = 101
 
 HOST_NUMBER = 4
-SERVICES_PER_HOST_NUMBER = 4
+SERVICES_PER_HOST_NUMBER = 40
 
 NETWORK = "172.25.0.0/16"
 NETWORK_NAME = "cyber_range"
@@ -61,6 +61,15 @@ for host_number in range(HOST_NUMBER):
     
 
 
+# Helper function
+def is_port_occupied(ports_to_check,occupied_ports):
+    for port in ports_to_check:
+        if port in occupied_ports:
+            return True
+    return False
+
+
+
 # initialize host_to_service
 host_to_service = dict()
 for host_id in host_to_operating_system:
@@ -70,10 +79,23 @@ for host_id in host_to_operating_system:
     # TODO have different list for different OS
 
     occupied_ports = set()
+    # required services
+    for chosen_service in selectable_services:
+        if chosen_service["required"] == True:
+            if is_port_occupied(chosen_service["port"],occupied_ports):
+                print("ERROR! Tried to add service "+chosen_service["name"]+" but ports were already occupied!")
+            else:
+                selectable_services.remove(chosen_service)
+                for port in chosen_service["port"]:
+                    occupied_ports.add(port)
+                host_to_service[host_id].append(chosen_service)
+
+
+    # non required services
     for service_number in range(SERVICES_PER_HOST_NUMBER):
         if len(selectable_services) > 0:
             chosen_service = random.choice(selectable_services)
-            while (len(selectable_services)>0) and (chosen_service["port"] in occupied_ports):
+            while (len(selectable_services)>0) and (is_port_occupied(chosen_service["port"],occupied_ports)):
                 selectable_services.remove(chosen_service)
                 if len(selectable_services) == 0:
                     chosen_service = None
@@ -82,7 +104,8 @@ for host_id in host_to_operating_system:
 
             if chosen_service != None:
                 selectable_services.remove(chosen_service)
-                occupied_ports.add(chosen_service["port"])
+                for port in chosen_service["port"]:
+                    occupied_ports.add(port)
                 host_to_service[host_id].append(chosen_service)
 
 
