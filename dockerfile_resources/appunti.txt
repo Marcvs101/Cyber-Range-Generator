@@ -1,11 +1,14 @@
-Abbiamo quattro applicativi in croce
+Abbiamo piu di quattro applicativi in croce!
 
 - openssh
 - vsftpd
 - apache2
 - nginx
-
-Questi quattro si bindano senza problemi e fanno quello che devono fare
+- postgres (solo locale)
+- mariadb (solo locale)
+- postfix
+- firefox (solo locale)
+- neo4j
 
 
 ActiveMQ non si installa facilmente
@@ -19,7 +22,7 @@ Ho seguito i sacri testi
 Ho fatto TUTTO, ma non ci si bindano
 
 
-In tutto questo
+Aggiornamento
 
-Nessus restituisce due CVE, su come ubuntu gestisce le redirect..
-Gli applicativi sembrano puliti..
+Specificando delle credenziali ssh, nessus gira le probe locali
+Le probe locali restituiscono tante belle cose
