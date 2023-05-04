@@ -69,9 +69,9 @@
             "name":"postfix",
             "required":false,
             "port":[25],
-            "string":"# Install and configure postfix \nRUN apt install postfix -y",
-            "entrypoint":"# Entrypoint \nCMD [\"firefox\"]",
-            "shell_commands":["firefox"]
+            "string":"# Install and configure postfix \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install postfix -y",
+            "entrypoint":"# Entrypoint \nCMD [\"postfix start\"]",
+            "shell_commands":["postfix start"]
         }
         
     ]
