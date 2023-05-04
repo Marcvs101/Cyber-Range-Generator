@@ -74,15 +74,6 @@
             "shell_commands":["postfix start"]
         },
         {
-            "id":"neo4j",
-            "name":"neo4j",
-            "required":false,
-            "port":[7687],
-            "string":"# Install and configure neo4j \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install neo4j -y \nRUN echo dbms.default_listen_address=0.0.0.0 >> /etc/neo4j/neo4j.conf",
-            "entrypoint":"# Entrypoint \nCMD [\"service neo4j start\"]",
-            "shell_commands":["service neo4j start"]
-        },
-        {
             "id":"mysql",
             "name":"mysql",
             "required":false,
