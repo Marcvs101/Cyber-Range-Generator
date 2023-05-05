@@ -69,7 +69,7 @@
             "name":"postfix",
             "required":false,
             "port":[25],
-            "string":"# Install and configure postfix \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install postfix -y",
+            "string":"# Install and configure postfix \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install postfix -y \n\nEXPOSE 25",
             "entrypoint":"# Entrypoint \nCMD [\"postfix start\"]",
             "shell_commands":["postfix start"]
         },
@@ -78,9 +78,18 @@
             "name":"mysql",
             "required":false,
             "port":[3306],
-            "string":"# Install and configure mysql \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install mysql-server -y",
+            "string":"# Install and configure mysql \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install mysql-server -y \n\nEXPOSE 3306",
             "entrypoint":"# Entrypoint \nCMD [\"service mysql start\"]",
             "shell_commands":["service mysql start"]
+        },
+        {
+            "id":"rabbitmq",
+            "name":"rabbitmq",
+            "required":false,
+            "port":[5672,15672],
+            "string":"# Install and configure rabbitmq \nARG DEBIAN_FRONTEND=noninteractive \nRUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash \nRUN apt install rabbitmq-server \n\nEXPOSE 5672 \nEXPOSE 15672",
+            "entrypoint":"# Entrypoint \nCMD [\"service rabbitmq start\n rabbitmq-plugins enable rabbitmq_management\"]",
+            "shell_commands":["service rabbitmq start \nrabbitmq-plugins enable rabbitmq_management"]
         }
         
     ]
