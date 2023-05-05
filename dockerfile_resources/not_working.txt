@@ -1,5 +1,7 @@
 # ubuntu
 
+"18.04.6 LTS":"bionic",
+
 
         {
             "id":"neo4j",

@@ -57,12 +57,21 @@
         },
         {
             "id":"firefox",
-            "name":"firefox",
+            "name":"firefox browser",
             "required":false,
             "port":[],
-            "string":"# Install and configure firefox \nRUN apt install firefox -y",
+            "string":"# Install and configure firefox \nRUN apt install firefox -y; exit 0",
             "entrypoint":"# Entrypoint \nCMD [\"firefox --headless\"]",
             "shell_commands":["firefox --headless"]
+        },
+        {
+            "id":"chromium",
+            "name":"chromium browser",
+            "required":false,
+            "port":[],
+            "string":"# Install and configure chromium \nRUN apt install chromium-browser -y",
+            "entrypoint":"# Entrypoint \nCMD [\"chromium-browser --headless\"]",
+            "shell_commands":["chromium-browser --headless"]
         },
         {
             "id":"postfix",

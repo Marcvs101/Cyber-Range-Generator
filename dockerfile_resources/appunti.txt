@@ -12,6 +12,7 @@ Abbiamo piu di quattro applicativi in croce!
 - rabbitmq
 
 Versioni vecchie di firefox non hanno la modalità headless e non partono
+Su alcune versioni vecchie di ubuntu firefox e postgres non si installano - Ho risolto rimuovendo la versione colpevole dallo stack
 
 ActiveMQ non si installa facilmente
 L'archivio su apt install è incompleto e ti dicono di scaricare uno zip con una versione specifica
