@@ -89,7 +89,7 @@
             "port":[5672,15672],
             "string":"# Install and configure rabbitmq \nARG DEBIAN_FRONTEND=noninteractive \nRUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash \nRUN apt install rabbitmq-server \n\nEXPOSE 5672 \nEXPOSE 15672",
             "entrypoint":"# Entrypoint \nCMD [\"service rabbitmq start\n rabbitmq-plugins enable rabbitmq_management\"]",
-            "shell_commands":["service rabbitmq start \nrabbitmq-plugins enable rabbitmq_management"]
+            "shell_commands":["service rabbitmq start","rabbitmq-plugins enable rabbitmq_management"]
         }
         
     ]
