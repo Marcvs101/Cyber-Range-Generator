@@ -60,7 +60,7 @@
             "name":"firefox",
             "required":false,
             "port":[],
-            "string":"# Install and configure firefox \nRUN apt install firefox -y --fix-missing",
+            "string":"# Install and configure firefox \nRUN apt install firefox -y --fix-missing; exit 0",
             "entrypoint":"# Entrypoint \nCMD [\"firefox\"]",
             "shell_commands":["firefox"]
         },
