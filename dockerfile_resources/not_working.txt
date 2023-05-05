@@ -12,3 +12,12 @@
             "entrypoint":"# Entrypoint \nCMD [\"service neo4j start\"]",
             "shell_commands":["service neo4j start"]
         },
+        {
+            "id":"chromium",
+            "name":"chromium browser",
+            "required":false,
+            "port":[],
+            "string":"# Install and configure chromium \nRUN apt install chromium-browser -y \nRUN apt install snapd -y \nRUN snap install chromium",
+            "entrypoint":"# Entrypoint \nCMD [\"chromium-browser --headless\"]",
+            "shell_commands":["chromium-browser --headless"]
+        },
