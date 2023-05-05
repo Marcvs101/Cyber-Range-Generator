@@ -60,9 +60,9 @@
             "name":"firefox",
             "required":false,
             "port":[],
-            "string":"# Install and configure firefox \nRUN apt install firefox -y --fix-missing; exit 0",
-            "entrypoint":"# Entrypoint \nCMD [\"firefox\"]",
-            "shell_commands":["firefox"]
+            "string":"# Install and configure firefox \nRUN apt install firefox -y",
+            "entrypoint":"# Entrypoint \nCMD [\"firefox --headless\"]",
+            "shell_commands":["firefox --headless"]
         },
         {
             "id":"postfix",
@@ -87,9 +87,9 @@
             "name":"rabbitmq",
             "required":false,
             "port":[5672,15672],
-            "string":"# Install and configure rabbitmq \nARG DEBIAN_FRONTEND=noninteractive \nRUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash; exit 0 \nRUN apt install rabbitmq-server; exit 0 \n\nEXPOSE 5672 \nEXPOSE 15672",
-            "entrypoint":"# Entrypoint \nCMD [\"service rabbitmq start\n rabbitmq-plugins enable rabbitmq_management\"]",
-            "shell_commands":["service rabbitmq start","rabbitmq-plugins enable rabbitmq_management"]
+            "string":"# Install and configure rabbitmq \nARG DEBIAN_FRONTEND=noninteractive \nRUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash \nRUN apt install rabbitmq-server -y \n\nEXPOSE 5672 \nEXPOSE 15672",
+            "entrypoint":"# Entrypoint \nCMD [\"service rabbitmq-server start\n rabbitmq-plugins enable rabbitmq_management\"]",
+            "shell_commands":["service rabbitmq-server start","rabbitmq-plugins enable rabbitmq_management"]
         }
         
     ]
