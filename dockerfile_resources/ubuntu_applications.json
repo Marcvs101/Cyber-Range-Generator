@@ -106,8 +106,8 @@
             "required":false,
             "port":[],
             "string":"# Install and configure python \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install python -y; exit 0",
-            "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
-            "shell_commands":["tail -f /dev/null"]
+            "entrypoint":"# Entrypoint \nCMD [\"python -m http.server 8088  --bind 0.0.0.0\"]",
+            "shell_commands":["python -m SimpleHTTPServer 8088","python -m http.server 8088 --bind 0.0.0.0"]
         },
         {
             "id":"java",
