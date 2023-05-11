@@ -96,7 +96,7 @@
             "name":"php",
             "required":false,
             "port":[],
-            "string":"# Install and configure php \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install php -y",
+            "string":"# Install and configure php \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install php -y; exit 0",
             "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
             "shell_commands":["tail -f /dev/null"]
         },
@@ -123,7 +123,7 @@
             "name":"nodejs",
             "required":false,
             "port":[],
-            "string":"# Install and configure nodejs \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install nodejs -y \nRUN apt install npm",
+            "string":"# Install and configure nodejs \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install nodejs -y \nRUN apt install npm -y",
             "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
             "shell_commands":["tail -f /dev/null"]
         }
