@@ -90,6 +90,42 @@
             "string":"# Install and configure rabbitmq \nARG DEBIAN_FRONTEND=noninteractive \nRUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash \nRUN apt install rabbitmq-server -y \nRUN service rabbitmq-server start \nRUN rabbitmq-plugins enable rabbitmq_management \n\nEXPOSE 5672 \nEXPOSE 15672 \nEXPOSE 4369",
             "entrypoint":"# Entrypoint \nCMD [\"service rabbitmq-server start\n rabbitmq-plugins enable rabbitmq_management\"]",
             "shell_commands":["service rabbitmq-server start","rabbitmq-plugins enable rabbitmq_management"]
+        },
+        {
+            "id":"php",
+            "name":"php",
+            "required":false,
+            "port":[],
+            "string":"# Install and configure php \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install php -y",
+            "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
+            "shell_commands":["tail -f /dev/null"]
+        },
+        {
+            "id":"python",
+            "name":"python",
+            "required":false,
+            "port":[],
+            "string":"# Install and configure python \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install python -y; exit 0",
+            "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
+            "shell_commands":["tail -f /dev/null"]
+        },
+        {
+            "id":"java",
+            "name":"java",
+            "required":false,
+            "port":[],
+            "string":"# Install and configure java \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install default-jre -y \nRUN apt install default-jdk -y",
+            "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
+            "shell_commands":["tail -f /dev/null"]
+        },
+        {
+            "id":"nodejs",
+            "name":"nodejs",
+            "required":false,
+            "port":[],
+            "string":"# Install and configure nodejs \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install nodejs -y \nRUN apt install npm",
+            "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
+            "shell_commands":["tail -f /dev/null"]
         }
         
     ]
