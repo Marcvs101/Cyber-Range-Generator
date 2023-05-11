@@ -8,8 +8,24 @@ Abbiamo piu di quattro applicativi in croce!
 - mariadb (solo locale)
 - postfix
 - firefox
-- neo4j
+- mysql
 - rabbitmq
+- php
+- python
+- java
+- nodejs
+
+
+Razionale
+
+La razionale che sto seguendo è:
+- Avere server https
+- Avere database
+- Avere ssh, ftp e mail server
+- Avere applicativi locali
+
+
+Problemi
 
 Versioni vecchie di firefox non hanno la modalità headless e non partono
 Su alcune versioni vecchie di ubuntu firefox e postgres non si installano - Ho risolto rimuovendo la versione colpevole dallo stack
