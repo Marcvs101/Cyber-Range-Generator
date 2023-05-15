@@ -157,6 +157,10 @@ for host_id in host_to_service:
         for command in application["install_commands"]:
             f.write(command+"\n")
         f.write("\n")
+        if len(application["port"])>0:
+            for port in application["port"]:
+                f.write("EXPOSE "+str(port)+"\n")
+            f.write("\n")
 
     # # shell script to start everything
     f.write("# Create runfile\n")

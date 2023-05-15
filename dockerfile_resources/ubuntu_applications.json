@@ -12,9 +12,7 @@
                                 "RUN apt install openssh-server -y",
                                 "RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo test",
                                 "RUN echo \"test:test\" | chpasswd",
-                                "RUN service ssh start",
-                                "",
-                                "EXPOSE 22"],
+                                "RUN service ssh start"],
             "run_commands":["/usr/sbin/sshd -D"]
         },
         {
@@ -24,9 +22,7 @@
             "port":[80],
             "install_commands":["# Install and configure apache",
                                 "RUN apt install apache2 -y",
-                                "RUN apt install apache2-utils -y",
-                                "",
-                                "EXPOSE 80"],
+                                "RUN apt install apache2-utils -y"],
             "run_commands":["apache2ctl -D FOREGROUND"]
         },
         {
@@ -35,9 +31,7 @@
             "required":false,
             "port":[80],
             "install_commands":["# Install and configure nginx",
-                                "RUN apt install nginx -y",
-                                "",
-                                "EXPOSE 80"],
+                                "RUN apt install nginx -y"],
             "run_commands":["service nginx start"]
         },
         {
@@ -48,10 +42,7 @@
             "install_commands":["# Install and configure vsftpd",
                                 "RUN apt install vsftpd -y",
                                 "RUN useradd -m testuser",
-                                "RUN echo \"testuser:testuser\" | chpasswd",
-                                "",
-                                "EXPOSE 20",
-                                "EXPOSE 21"],
+                                "RUN echo \"testuser:testuser\" | chpasswd"],
             "run_commands":["/usr/sbin/vsftpd"]
         },
         {
@@ -66,9 +57,7 @@
                                 "RUN cd /etc/postgresql/*; echo \"listen_addresses = '*'\" >> main/postgresql.conf",
                                 "RUN cd /etc/postgresql/*; echo \"# TYPE DATABASE USER ADDRESS METHOD\" >> main/pg_hba.conf",
                                 "RUN cd /etc/postgresql/*; echo \"host all all 0.0.0.0/0 md5\" >> main/pg_hba.conf",
-                                "RUN cd /etc/postgresql/*; echo \"host all all ::/0 md5\" >> main/pg_hba.conf",
-                                "",
-                                "EXPOSE 5432"],
+                                "RUN cd /etc/postgresql/*; echo \"host all all ::/0 md5\" >> main/pg_hba.conf"],
             "run_commands":["service postgresql start"]
         },
         {
@@ -84,9 +73,7 @@
                                 "RUN sed -i \"s/socket =/# socket =/\" /etc/mysql/mariadb.cnf",
                                 "RUN sed -i \"s/127.0.0.1/0.0.0.0/\" /etc/mysql/mariadb.conf.d/50-server.cnf; exit 0",
                                 "RUN echo \"skip-networking=0\" >> /etc/mysql/conf.d/mysql.cnf",
-                                "RUN echo \"skip-bind-address\" >> /etc/mysql/conf.d/mysql.cnf",
-                                "",
-                                "EXPOSE 3306"],
+                                "RUN echo \"skip-bind-address\" >> /etc/mysql/conf.d/mysql.cnf"],
             "run_commands":["service mariadb start"]
         },
         {
@@ -105,8 +92,7 @@
             "port":[25],
             "install_commands":["# Install and configure postfix",
                                 "ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install postfix -y",
-                                "EXPOSE 25"],
+                                "RUN apt install postfix -y"],
             "run_commands":["postfix start"]
         },
         {
@@ -116,8 +102,7 @@
             "port":[3306],
             "install_commands":["# Install and configure mysql",
                                 "ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install mysql-server -y",
-                                "EXPOSE 3306"],
+                                "RUN apt install mysql-server -y"],
             "run_commands":["service mysql start"]
         },
         {
@@ -130,11 +115,7 @@
                                 "RUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash",
                                 "RUN apt install rabbitmq-server -y",
                                 "RUN service rabbitmq-server start",
-                                "RUN rabbitmq-plugins enable rabbitmq_management",
-                                "",
-                                "EXPOSE 5672",
-                                "EXPOSE 15672",
-                                "EXPOSE 4369"],
+                                "RUN rabbitmq-plugins enable rabbitmq_management"],
             "run_commands":["service rabbitmq-server start","rabbitmq-plugins enable rabbitmq_management"]
         },
         {
