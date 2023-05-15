@@ -172,7 +172,11 @@
             "ports":[5559],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install samba -y",
-                                "RUN echo '[sambashare]\ncomment = Samba on Ubuntu\npath = /\nread only = no\nbrowsable = yes' >> /etc/samba/smb.conf"],
+                                "RUN echo '[sambashare]' >> /etc/samba/smb.conf",
+                                "RUN echo 'comment = Samba on Ubuntu' >> /etc/samba/smb.conf",
+                                "RUN echo 'path = /' >> /etc/samba/smb.conf",
+                                "RUN echo 'read only = no' >> /etc/samba/smb.conf",
+                                "RUN echo 'browsable = yes' >> /etc/samba/smb.conf"],
             "run_commands":["service smbd start"]
         },
         {
