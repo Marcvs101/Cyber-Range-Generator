@@ -115,7 +115,7 @@
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install php -y; exit 0"],
-            "run_commands":["tail -f /dev/null"]
+            "run_commands":["php -v"]
         },
         {
             "id":"python",
@@ -134,7 +134,7 @@
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install default-jre -y",
                                 "RUN apt install default-jdk -y"],
-            "run_commands":["tail -f /dev/null"]
+            "run_commands":["java -v"]
         },
         {
             "id":"nodejs",
@@ -144,7 +144,45 @@
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install nodejs -y",
                                 "RUN apt install npm -y"],
-            "run_commands":["tail -f /dev/null"]
+            "run_commands":["nodejs -v"]
+        },
+        {
+            "id":"procmail",
+            "name":"procmail",
+            "required":false,
+            "ports":[],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install procmail -y"],
+            "run_commands":["procmail -v"]
+        },
+        {
+            "id":"ruby",
+            "name":"ruby",
+            "required":false,
+            "ports":[],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install ruby -y; exit 0",
+                                "RUN apt install ruby-full -y; exit 0"],
+            "run_commands":["ruby --version"]
+        },
+        {
+            "id":"samba",
+            "name":"samba",
+            "required":false,
+            "ports":[5559],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install samba -y",
+                                "RUN echo '[sambashare]\ncomment = Samba on Ubuntu\npath = /\nread only = no\nbrowsable = yes' >> /etc/samba/smb.conf"],
+            "run_commands":["service smbd start"]
+        },
+        {
+            "id":"thunderbird",
+            "name":"thunderbird",
+            "required":false,
+            "ports":[],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install thunderbird -y"],
+            "run_commands":["thunderbird -v"]
         }
         
     ]
