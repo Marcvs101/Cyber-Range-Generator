@@ -86,11 +86,11 @@ for host_id in host_to_operating_system:
     # required services
     for chosen_service in selectable_services:
         if chosen_service["required"] == True:
-            if is_port_occupied(chosen_service["port"],occupied_ports):
+            if is_port_occupied(chosen_service["ports"],occupied_ports):
                 print("ERROR! Tried to add service "+chosen_service["name"]+" but ports were already occupied!")
             else:
                 selectable_services.remove(chosen_service)
-                for port in chosen_service["port"]:
+                for port in chosen_service["ports"]:
                     occupied_ports.add(port)
                 host_to_service[host_id].append(chosen_service)
 
@@ -99,7 +99,7 @@ for host_id in host_to_operating_system:
     for service_number in range(SERVICES_PER_HOST_NUMBER):
         if len(selectable_services) > 0:
             chosen_service = random.choice(selectable_services)
-            while (len(selectable_services)>0) and (is_port_occupied(chosen_service["port"],occupied_ports)):
+            while (len(selectable_services)>0) and (is_port_occupied(chosen_service["ports"],occupied_ports)):
                 selectable_services.remove(chosen_service)
                 if len(selectable_services) == 0:
                     chosen_service = None
@@ -108,7 +108,7 @@ for host_id in host_to_operating_system:
 
             if chosen_service != None:
                 selectable_services.remove(chosen_service)
-                for port in chosen_service["port"]:
+                for port in chosen_service["ports"]:
                     occupied_ports.add(port)
                 host_to_service[host_id].append(chosen_service)
 
@@ -160,8 +160,8 @@ for host_id in host_to_service:
         for command in application["install_commands"]:
             f.write(command+"\n")
         f.write("\n")
-        if len(application["port"])>0:
-            for port in application["port"]:
+        if len(application["ports"])>0:
+            for port in application["ports"]:
                 f.write("EXPOSE "+str(port)+"\n")
             f.write("\n")
 
