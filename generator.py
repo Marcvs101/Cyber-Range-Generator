@@ -154,6 +154,7 @@ for host_id in host_to_service:
 
     # # applications
     for application in host_to_service[host_id]:
+        f.write("# Install and configure "+application["name"]+"\n\n")
         for command in application["install_commands"]:
             f.write(command+"\n")
         f.write("\n")
