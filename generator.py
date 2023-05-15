@@ -55,6 +55,7 @@ for host_number in range(HOST_NUMBER):
     osdict = dict()
     osdict["id"] = chosen_os["id"]
     osdict["name"] = chosen_os["name"]
+    osdict["version"] = chosen_os["release_map"][chosen_release] + " ["+chosen_release+"]"
     osdict["install_commands"] = list()
     for command in chosen_os["install_commands"]:
         command = command.replace(chosen_os["release_keyword"],chosen_os["release_map"][chosen_release])
@@ -148,6 +149,7 @@ for host_id in host_to_service:
     f = open(file=OUTPUT_DIR+host_id+"/Dockerfile",mode="w",encoding="utf-8")
 
     # # operating system
+    f.write("# Install and configure "+host_to_operating_system[host_id]["name"]+", version "+host_to_operating_system[host_id]["version"]+"\n")
     for command in host_to_operating_system[host_id]["install_commands"]:
         f.write(command+"\n")
     f.write("\n")
