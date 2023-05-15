@@ -55,7 +55,10 @@ for host_number in range(HOST_NUMBER):
     osdict = dict()
     osdict["id"] = chosen_os["id"]
     osdict["name"] = chosen_os["name"]
-    osdict["string"] = chosen_os["string"].replace(chosen_os["release_keyword"],chosen_os["release_map"][chosen_release])
+    osdict["install_commands"] = list()
+    for command in chosen_os["install_commands"]:
+        command = command.replace(chosen_os["release_keyword"],chosen_os["release_map"][chosen_release])
+        osdict["install_commands"].append(command)
 
     host_to_operating_system[host_id] = osdict
     
@@ -145,22 +148,23 @@ for host_id in host_to_service:
     f = open(file=OUTPUT_DIR+host_id+"/Dockerfile",mode="w",encoding="utf-8")
 
     # # operating system
-    f.write(host_to_operating_system[host_id]["string"])
-    f.write("\n\n")
+    for command in host_to_operating_system[host_id]["install_commands"]:
+        f.write(command+"\n")
+    f.write("\n")
 
     # # applications
     for application in host_to_service[host_id]:
-        f.write(application["string"])
-        f.write("\n\n")
+        for command in application["install_commands"]:
+            f.write(command+"\n")
+        f.write("\n")
 
     # # shell script to start everything
     f.write("# Create runfile\n")
     f.write("RUN touch startup.sh\n")
     f.write('RUN echo "#! /bin/bash" >> startup.sh\n')
     for application in host_to_service[host_id]:
-        for command in application["shell_commands"]:
-            f.write('RUN echo "'+command+' &" >> startup.sh')
-            f.write("\n")
+        for command in application["run_commands"]:
+            f.write('RUN echo "'+command+' &" >> startup.sh\n')
     f.write('RUN echo "tail -f /dev/null" >> startup.sh\n')
     f.write("RUN chmod +x startup.sh\n")
     f.write("\n")
@@ -214,8 +218,8 @@ os.mkdir(OUTPUT_DIR+"inventories")
 f = open(file=OUTPUT_DIR+"windows_get_raw_device_inventory.bat",mode="w",encoding="utf-8")
 f.write("@echo off\n\n")
 for host_id in host_to_service:
-    f.write("docker sbom generated_"+host_id+" > "+host_id+"/raw_device_inventory.txt\n")
-    f.write("docker sbom generated_"+host_id+" > inventories/"+host_to_network_address[host_id]+"_raw_device_inventory.txt\n")
+    f.write("docker sbom generated_"+host_id+" --output "+host_id+"/raw_device_inventory.txt\n")
+    f.write("docker sbom generated_"+host_id+" --output inventories/"+host_to_network_address[host_id]+"_raw_device_inventory.txt\n")
 f.close()
 
 f = open(file=OUTPUT_DIR+"windows_get_raw_vulnerability_inventory.bat",mode="w",encoding="utf-8")
@@ -228,8 +232,8 @@ f.close()
 f = open(file=OUTPUT_DIR+"linux_get_raw_device_inventory.sh",mode="w",encoding="utf-8")
 f.write("#!/bin/bash\n\n")
 for host_id in host_to_service:
-    f.write("docker sbom generated_"+host_id+" > "+host_id+"/raw_device_inventory.txt\n")
-    f.write("docker sbom generated_"+host_id+" > inventories/"+host_to_network_address[host_id]+"_raw_device_inventory.txt\n")
+    f.write("docker sbom generated_"+host_id+" --output "+host_id+"/raw_device_inventory.txt\n")
+    f.write("docker sbom generated_"+host_id+" --output inventories/"+host_to_network_address[host_id]+"_raw_device_inventory.txt\n")
 f.close()
 
 f = open(file=OUTPUT_DIR+"linux_get_raw_vulnerability_inventory.sh",mode="w",encoding="utf-8")

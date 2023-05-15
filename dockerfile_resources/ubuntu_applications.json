@@ -6,126 +6,178 @@
             "name":"openssh",
             "required":true,
             "port":[22],
-            "string":"# Install and configure openssh \nARG DEBIAN_FRONTEND=noninteractive \nENV TZ=Etc/UTC \nRUN apt install openssh-server -y \nRUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo test \nRUN echo \"test:test\" | chpasswd \nRUN service ssh start \n\nEXPOSE 22",
-            "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/sshd\",\"-D\"]",
-            "shell_commands":["/usr/sbin/sshd -D"]
+            "install_commands":["# Install and configure openssh",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "ENV TZ=Etc/UTC",
+                                "RUN apt install openssh-server -y",
+                                "RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo test",
+                                "RUN echo \"test:test\" | chpasswd",
+                                "RUN service ssh start",
+                                "",
+                                "EXPOSE 22"],
+            "run_commands":["/usr/sbin/sshd -D"]
         },
         {
             "id":"apache2",
             "name":"apache2",
             "required":false,
             "port":[80],
-            "string":"# Install and configure apache \nRUN apt install apache2 -y \nRUN apt install apache2-utils -y \n\nEXPOSE 80",
-            "entrypoint":"# Entrypoint \nCMD [\"apache2ctl\", \"-D\", \"FOREGROUND\"]",
-            "shell_commands":["apache2ctl -D FOREGROUND"]
+            "install_commands":["# Install and configure apache",
+                                "RUN apt install apache2 -y",
+                                "RUN apt install apache2-utils -y",
+                                "",
+                                "EXPOSE 80"],
+            "run_commands":["apache2ctl -D FOREGROUND"]
         },
         {
             "id":"nginx",
             "name":"nginx",
             "required":false,
             "port":[80],
-            "string":"# Install and configure nginx \nRUN apt install nginx -y \n\nEXPOSE 80",
-            "entrypoint":"# Entrypoint \nCMD [\"nginx -g daemon off\"]",
-            "shell_commands":["service nginx start"]
+            "install_commands":["# Install and configure nginx",
+                                "RUN apt install nginx -y",
+                                "",
+                                "EXPOSE 80"],
+            "run_commands":["service nginx start"]
         },
         {
             "id":"vsftpd",
             "name":"vsftpd",
             "required":false,
             "port":[20,21],
-            "string":"# Install and configure vsftpd \nRUN apt install vsftpd -y \nRUN useradd -m testuser \nRUN echo \"testuser:testuser\" | chpasswd \n\nEXPOSE 20 \nEXPOSE 21",
-            "entrypoint":"# Entrypoint \nCMD [\"/usr/sbin/vsftpd\"]",
-            "shell_commands":["/usr/sbin/vsftpd"]
+            "install_commands":["# Install and configure vsftpd",
+                                "RUN apt install vsftpd -y",
+                                "RUN useradd -m testuser",
+                                "RUN echo \"testuser:testuser\" | chpasswd",
+                                "",
+                                "EXPOSE 20",
+                                "EXPOSE 21"],
+            "run_commands":["/usr/sbin/vsftpd"]
         },
         {
             "id":"postgresql",
             "name":"postgresql",
             "required":false,
             "port":[5432],
-            "string":"# Install and configure postgresql \nARG DEBIAN_FRONTEND=noninteractive \nENV TZ=Etc/UTC \nRUN apt install postgresql postgresql-contrib -y \nRUN cd /etc/postgresql/*; echo \"listen_addresses = '*'\" >> main/postgresql.conf \nRUN cd /etc/postgresql/*; echo \"# TYPE DATABASE USER ADDRESS METHOD\" >> main/pg_hba.conf \nRUN cd /etc/postgresql/*; echo \"host all all 0.0.0.0/0 md5\" >> main/pg_hba.conf \nRUN cd /etc/postgresql/*; echo \"host all all ::/0 md5\" >> main/pg_hba.conf \n\nEXPOSE 5432",
-            "entrypoint":"# Entrypoint \nCMD [\"postgres\"]",
-            "shell_commands":["service postgresql start"]
+            "install_commands":["# Install and configure postgresql",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "ENV TZ=Etc/UTC",
+                                "RUN apt install postgresql postgresql-contrib -y",
+                                "RUN cd /etc/postgresql/*; echo \"listen_addresses = '*'\" >> main/postgresql.conf",
+                                "RUN cd /etc/postgresql/*; echo \"# TYPE DATABASE USER ADDRESS METHOD\" >> main/pg_hba.conf",
+                                "RUN cd /etc/postgresql/*; echo \"host all all 0.0.0.0/0 md5\" >> main/pg_hba.conf",
+                                "RUN cd /etc/postgresql/*; echo \"host all all ::/0 md5\" >> main/pg_hba.conf",
+                                "",
+                                "EXPOSE 5432"],
+            "run_commands":["service postgresql start"]
         },
         {
             "id":"mariadb",
             "name":"mariadb",
             "required":false,
             "port":[3306],
-            "string":"# Install and configure mariadb \nRUN apt install mariadb-server -y \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/my.cnf \nRUN sed -i \"s/# port =/port =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/socket =/# socket =/\" /etc/mysql/mariadb.cnf \nRUN sed -i \"s/127.0.0.1/0.0.0.0/\" /etc/mysql/mariadb.conf.d/50-server.cnf; exit 0 \nRUN echo \"skip-networking=0\" >> /etc/mysql/conf.d/mysql.cnf \nRUN echo \"skip-bind-address\" >> /etc/mysql/conf.d/mysql.cnf \n\nEXPOSE 3306",
-            "entrypoint":"# Entrypoint \nCMD [\"mariadbd\"]",
-            "shell_commands":["service mariadb start"]
+            "install_commands":["# Install and configure mariadb",
+                                "RUN apt install mariadb-server -y",
+                                "RUN sed -i \"s/# port =/port =/\" /etc/mysql/my.cnf",
+                                "RUN sed -i \"s/socket =/# socket =/\" /etc/mysql/my.cnf",
+                                "RUN sed -i \"s/# port =/port =/\" /etc/mysql/mariadb.cnf",
+                                "RUN sed -i \"s/socket =/# socket =/\" /etc/mysql/mariadb.cnf",
+                                "RUN sed -i \"s/127.0.0.1/0.0.0.0/\" /etc/mysql/mariadb.conf.d/50-server.cnf; exit 0",
+                                "RUN echo \"skip-networking=0\" >> /etc/mysql/conf.d/mysql.cnf",
+                                "RUN echo \"skip-bind-address\" >> /etc/mysql/conf.d/mysql.cnf",
+                                "",
+                                "EXPOSE 3306"],
+            "run_commands":["service mariadb start"]
         },
         {
             "id":"firefox",
             "name":"firefox browser",
             "required":false,
             "port":[],
-            "string":"# Install and configure firefox \nRUN apt install firefox -y; exit 0",
-            "entrypoint":"# Entrypoint \nCMD [\"firefox --headless\"]",
-            "shell_commands":["firefox --headless"]
+            "install_commands":["# Install and configure firefox",
+                                "RUN apt install firefox -y; exit 0"],
+            "run_commands":["firefox --headless"]
         },
         {
             "id":"postfix",
             "name":"postfix",
             "required":false,
             "port":[25],
-            "string":"# Install and configure postfix \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install postfix -y \n\nEXPOSE 25",
-            "entrypoint":"# Entrypoint \nCMD [\"postfix start\"]",
-            "shell_commands":["postfix start"]
+            "install_commands":["# Install and configure postfix",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install postfix -y",
+                                "EXPOSE 25"],
+            "run_commands":["postfix start"]
         },
         {
             "id":"mysql",
             "name":"mysql",
             "required":false,
             "port":[3306],
-            "string":"# Install and configure mysql \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install mysql-server -y \n\nEXPOSE 3306",
-            "entrypoint":"# Entrypoint \nCMD [\"service mysql start\"]",
-            "shell_commands":["service mysql start"]
+            "install_commands":["# Install and configure mysql",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install mysql-server -y",
+                                "EXPOSE 3306"],
+            "run_commands":["service mysql start"]
         },
         {
             "id":"rabbitmq",
             "name":"rabbitmq",
             "required":false,
             "port":[5672,15672],
-            "string":"# Install and configure rabbitmq \nARG DEBIAN_FRONTEND=noninteractive \nRUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash \nRUN apt install rabbitmq-server -y \nRUN service rabbitmq-server start \nRUN rabbitmq-plugins enable rabbitmq_management \n\nEXPOSE 5672 \nEXPOSE 15672 \nEXPOSE 4369",
-            "entrypoint":"# Entrypoint \nCMD [\"service rabbitmq-server start\n rabbitmq-plugins enable rabbitmq_management\"]",
-            "shell_commands":["service rabbitmq-server start","rabbitmq-plugins enable rabbitmq_management"]
+            "install_commands":["# Install and configure rabbitmq",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash",
+                                "RUN apt install rabbitmq-server -y",
+                                "RUN service rabbitmq-server start",
+                                "RUN rabbitmq-plugins enable rabbitmq_management",
+                                "",
+                                "EXPOSE 5672",
+                                "EXPOSE 15672",
+                                "EXPOSE 4369"],
+            "run_commands":["service rabbitmq-server start","rabbitmq-plugins enable rabbitmq_management"]
         },
         {
             "id":"php",
             "name":"php",
             "required":false,
             "port":[],
-            "string":"# Install and configure php \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install php -y; exit 0",
-            "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
-            "shell_commands":["tail -f /dev/null"]
+            "install_commands":["# Install and configure php",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install php -y; exit 0"],
+            "run_commands":["tail -f /dev/null"]
         },
         {
             "id":"python",
             "name":"python",
             "required":false,
             "port":[],
-            "string":"# Install and configure python \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install python -y; exit 0",
-            "entrypoint":"# Entrypoint \nCMD [\"python -m http.server 8088  --bind 0.0.0.0\"]",
-            "shell_commands":["python -m SimpleHTTPServer 8088","python -m http.server 8088 --bind 0.0.0.0"]
+            "install_commands":["# Install and configure python",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install python -y; exit 0"],
+            "run_commands":["python -m SimpleHTTPServer 8088","python -m http.server 8088 --bind 0.0.0.0"]
         },
         {
             "id":"java",
             "name":"java",
             "required":false,
             "port":[],
-            "string":"# Install and configure java \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install default-jre -y \nRUN apt install default-jdk -y",
-            "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
-            "shell_commands":["tail -f /dev/null"]
+            "install_commands":["# Install and configure java",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install default-jre -y",
+                                "RUN apt install default-jdk -y"],
+            "run_commands":["tail -f /dev/null"]
         },
         {
             "id":"nodejs",
             "name":"nodejs",
             "required":false,
             "port":[],
-            "string":"# Install and configure nodejs \nARG DEBIAN_FRONTEND=noninteractive \nRUN apt install nodejs -y \nRUN apt install npm -y",
-            "entrypoint":"# Entrypoint \nCMD [\"tail -f /dev/null\"]",
-            "shell_commands":["tail -f /dev/null"]
+            "install_commands":["# Install and configure nodejs",
+                                "ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install nodejs -y",
+                                "RUN apt install npm -y"],
+            "run_commands":["tail -f /dev/null"]
         }
         
     ]
