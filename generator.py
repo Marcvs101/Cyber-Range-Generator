@@ -93,7 +93,8 @@ for host_id in host_to_operating_system:
     selectable_services = list()
     for application_dict in application_list:
         if host_to_operating_system[host_id]["id"] in application_dict["os_id"]:
-            selectable_services = selectable_services + application_dict["application_list"]
+            for application in application_dict["application_list"]:
+                selectable_services.append(application)
     
     # sanity check
     target_services_per_host_number = SERVICES_PER_HOST_NUMBER
@@ -114,7 +115,7 @@ for host_id in host_to_operating_system:
 
 
     # non required services
-    for service_number in range(SERVICES_PER_HOST_NUMBER):
+    for service_number in range(target_services_per_host_number):
         if len(selectable_services) > 0:
             chosen_service = random.choice(selectable_services)
             while (len(selectable_services)>0) and (is_port_occupied(chosen_service["ports"],occupied_ports)):
@@ -130,7 +131,7 @@ for host_id in host_to_operating_system:
                     occupied_ports.add(port)
 
                 new_install_commands = list()
-                for command in chosen_service:
+                for command in chosen_service["install_commands"]:
                     command = command.replace(host_to_operating_system[host_id]["release_keyword"],host_to_operating_system[host_id]["release_subword"])
                     new_install_commands.append(command)
                 chosen_service["install_commands"] = new_install_commands
