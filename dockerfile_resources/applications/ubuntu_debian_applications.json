@@ -84,7 +84,7 @@
             "required":false,
             "ports":[25],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install postfix -y"],
+                                "RUN apt install postfix -y; exit 0"],
             "run_commands":["postfix start"]
         },
         {
@@ -93,7 +93,7 @@
             "required":false,
             "ports":[3306],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install mysql-server -y"],
+                                "RUN apt install mysql-server -y; exit 0"],
             "run_commands":["service mysql start"]
         },
         {
@@ -103,9 +103,9 @@
             "ports":[5672,15672],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash",
-                                "RUN apt install rabbitmq-server -y",
-                                "RUN service rabbitmq-server start",
-                                "RUN rabbitmq-plugins enable rabbitmq_management"],
+                                "RUN apt install rabbitmq-server -y; exit 0",
+                                "RUN service rabbitmq-server start; exit 0",
+                                "RUN rabbitmq-plugins enable rabbitmq_management; exit 0"],
             "run_commands":["service rabbitmq-server start","rabbitmq-plugins enable rabbitmq_management"]
         },
         {
@@ -194,11 +194,12 @@
             "required":false,
             "ports":[27017],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install curl",
+                                "RUN apt install curl -y",
+                                "RUN apt install gnupg -y",
                                 "RUN curl -fsSL https://www.mongodb.org/static/pgp/server-2.2.asc | apt-key add -",
                                 "RUN echo 'deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu RELEASE/mongodb-org/4.4 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-2.2.list",
                                 "RUN apt update; exit 0",
-                                "RUN apt install mongodb-org -y"],
+                                "RUN apt install mongodb-org -y; exit 0"],
             "run_commands":["service mongod start"]
         },
         {
@@ -207,7 +208,7 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install squirrelmail -y"],
+                                "RUN apt install squirrelmail -y; exit 0"],
             "run_commands":["squirrelmail -v"]
         },
         {
