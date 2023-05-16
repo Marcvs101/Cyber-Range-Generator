@@ -217,7 +217,7 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install chroumium-browser -y"],
+                                "RUN apt install chroumium-browser -y; exit 0"],
             "run_commands":["chromium-browser -v"]
         }
         

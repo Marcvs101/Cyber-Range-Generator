@@ -1,6 +1,20 @@
 # ubuntu
 
+# No apt
+"10.04.4 LTS":"lucid",
+"12.04.5 LTS":"precise",
+"12.10":"quantal",
+"13.04":"raring",
+"13.10":"saucy",
+
+# Connection failed during ssh
+"17.10":"artful",
+
+
+# No ssh
 "18.04.6 LTS":"bionic",
+"19.10":"eoan",
+"20.04.6 LTS":"focal",
 
 
         {
