@@ -1,5 +1,5 @@
 {
-    "os_id":"ubuntu",
+    "os_id":["ubuntu","debian"],
     "application_list":[
         {
             "id":"openssh",
@@ -187,6 +187,37 @@
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install thunderbird -y"],
             "run_commands":["thunderbird -v"]
+        },
+        {
+            "id":"mongo",
+            "name":"mongo",
+            "required":false,
+            "ports":[27017],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install curl",
+                                "RUN curl -fsSL https://www.mongodb.org/static/pgp/server-2.2.asc | apt-key add -",
+                                "RUN echo 'deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu RELEASE/mongodb-org/4.4 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-2.2.list",
+                                "RUN apt update; exit 0",
+                                "RUN apt install mongodb-org -y"],
+            "run_commands":["service mongod start"]
+        },
+        {
+            "id":"squirrelmail",
+            "name":"squirrelmail",
+            "required":false,
+            "ports":[],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install squirrelmail -y"],
+            "run_commands":["squirrelmail -v"]
+        },
+        {
+            "id":"chroumium",
+            "name":"chromium",
+            "required":false,
+            "ports":[],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install chroumium-browser -y"],
+            "run_commands":["chromium-browser -v"]
         }
         
     ]

@@ -17,6 +17,7 @@ NETWORK_OFFSET = 11
 SCANNER_ADDRESS = "172.25.0.10"
 
 OUTPUT_DIR = "generated/"
+RESOURCES_DIR = "dockerfile_resources/"
 
 
 # set random seed
@@ -24,19 +25,29 @@ random.seed(RANDOMSEED)
 
 
 # load resources
-f = open(file="dockerfile_resources/ubuntu.json",mode="r",encoding="utf-8")
-os_dictionary = json.loads(f.read())
-f.close()
+# load applications
+application_list = list()
+for filename in os.listdir(RESOURCES_DIR+"applications/"):
+    if ".json" in filename:
+        p = os.path.join(RESOURCES_DIR+"applications/", filename)
+        if os.path.isfile(p):
 
-f = open(file="dockerfile_resources/ubuntu_applications.json",mode="r",encoding="utf-8")
-application_dictionary = json.loads(f.read())
-f.close()
+            f = open(file=p,mode="r",encoding="utf-8")
+            application_list.append(json.loads(f.read()))
+            f.close()
 
 
+# load operating systems
+os_list = list()
+for filename in os.listdir(RESOURCES_DIR+"operating_systems/"):
+    if ".json" in filename:
+        p = os.path.join(RESOURCES_DIR+"operating_systems/", filename)
+        if os.path.isfile(p):
 
-# sanity check
-if SERVICES_PER_HOST_NUMBER >= len(application_dictionary["application_list"]):
-    SERVICES_PER_HOST_NUMBER = len(application_dictionary["application_list"])
+            f = open(file=p,mode="r",encoding="utf-8")
+            os_list.append(json.loads(f.read()))
+            f.close()
+
 
 
 # assign operating system
@@ -45,10 +56,8 @@ host_to_operating_system_id = dict()
 for host_number in range(HOST_NUMBER):
     host_id = "host_"+str(host_number)
 
-    chosen_os = os_dictionary
-    chosen_release = random.choice(list(os_dictionary["release_map"].keys()))
-    # TODO
-    # make the os a list and allow for random selection
+    chosen_os = random.choice(os_list)
+    chosen_release = random.choice(list(chosen_os["release_map"].keys()))
 
     host_to_operating_system_id[host_id] = chosen_os["id"]
 
@@ -56,9 +65,11 @@ for host_number in range(HOST_NUMBER):
     osdict["id"] = chosen_os["id"]
     osdict["name"] = chosen_os["name"]
     osdict["version"] = chosen_os["release_map"][chosen_release] + " ["+chosen_release+"]"
+    osdict["release_keyword"] = chosen_os["release_keyword"]
+    osdict["release_subword"] = chosen_os["release_map"][chosen_release]
     osdict["install_commands"] = list()
     for command in chosen_os["install_commands"]:
-        command = command.replace(chosen_os["release_keyword"],chosen_os["release_map"][chosen_release])
+        command = command.replace(osdict["release_keyword"],osdict["release_subword"])
         osdict["install_commands"].append(command)
 
     host_to_operating_system[host_id] = osdict
@@ -79,8 +90,15 @@ host_to_service = dict()
 for host_id in host_to_operating_system:
     host_to_service[host_id] = list()
 
-    selectable_services = application_dictionary["application_list"].copy()
-    # TODO have different list for different OS
+    selectable_services = list()
+    for application_dict in application_list:
+        if host_to_operating_system[host_id]["id"] in application_dict["os_id"]:
+            selectable_services = selectable_services + application_dict["application_list"]
+    
+    # sanity check
+    target_services_per_host_number = SERVICES_PER_HOST_NUMBER
+    if target_services_per_host_number >= len(selectable_services):
+        target_services_per_host_number = len(selectable_services)
 
     occupied_ports = set()
     # required services
@@ -110,6 +128,13 @@ for host_id in host_to_operating_system:
                 selectable_services.remove(chosen_service)
                 for port in chosen_service["ports"]:
                     occupied_ports.add(port)
+
+                new_install_commands = list()
+                for command in chosen_service:
+                    command = command.replace(host_to_operating_system[host_id]["release_keyword"],host_to_operating_system[host_id]["release_subword"])
+                    new_install_commands.append(command)
+                chosen_service["install_commands"] = new_install_commands
+
                 host_to_service[host_id].append(chosen_service)
 
 

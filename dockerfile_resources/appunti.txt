@@ -15,11 +15,11 @@ Abbiamo piu di quattro applicativi in croce!
 - java
 - nodejs
 
-- eth vm?
-- mongo?
-- squirrelmail?
-- open office?
-- chromium?
+- eth vm? **
+- mongo? **
+- squirrelmail? ** 
+- open office? 
+- chromium? **
 - pdf reader?
 
 Debian?

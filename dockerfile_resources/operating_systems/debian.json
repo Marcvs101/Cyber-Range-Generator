@@ -1,0 +1,23 @@
+{
+    "id":"debian",
+    "name":"debian",
+    "release_keyword":"RELEASE",
+    "install_commands":["FROM debian:RELEASE",
+                        "",
+                        "RUN echo \"deb http://archive.debian.com/debian/ RELEASE contrib main non-free\" | cat >> /etc/apt/sources.list",
+                        "RUN echo \"deb http://archive.debian.com/debian/ RELEASE RELEASE-unstable contrib main non-free\" | cat >> /etc/apt/sources.list",
+                        "RUN echo \"deb http://archive.debian.org/debian-non-US/ RELEASE/non-US main contrib non-free\" | cat >> /etc/apt/sources.list",
+                        "RUN echo \"deb-src http://archive.debian.org/debian-non-US/ RELEASE/non-US main contrib non-free\" | cat >> /etc/apt/sources.list",
+                        "",
+                        "# Necessario per schivare le 404",
+                        "# Exit 0 non manda tutto il circo in errore",
+                        "RUN apt update; exit 0"],
+    "release_map":{
+        "6.0":"squeeze",
+        "7":"wheezy",
+        "8":"jessie",
+        "9":"stretch",
+        "10":"buster",
+        "11":"bullseye"
+    }
+}
