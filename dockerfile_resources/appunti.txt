@@ -14,16 +14,23 @@ Abbiamo piu di quattro applicativi in croce!
 - python
 - java
 - nodejs
+- procmail
+- ruby
+- samba
+- thunderbird
+- mongo
+- squirrelmail
+- chromium
 
-- eth vm? **
-- mongo? **
-- squirrelmail? ** 
-- open office? 
-- chromium? **
+- eth vm? ** 
+- open office?
 - pdf reader?
 
-Debian?
 Porte non standard?
+
+Abbiamo anche diversi sistemi operativi
+- Ununtu linux
+- Debian linux
 
 
 Razionale
