@@ -22,6 +22,8 @@
         "18.04.6 LTS":"bionic",
         "18.10":"cosmic",
         "19.04":"disco",
+        "19.10":"eoan",
+        "20.04.6 LTS":"focal",
         "20.10":"groovy",
         "21.04":"hirsute",
         "21.10":"impish",

@@ -1,20 +1,18 @@
-# ubuntu
-
-# No apt
+# Ubuntu
+# No apt, nor openssh
 "10.04.4 LTS":"lucid",
 "12.04.5 LTS":"precise",
 "12.10":"quantal",
 "13.04":"raring",
 "13.10":"saucy",
 
-# Connection failed during ssh
-"17.10":"artful",
+# Debian
+# No apt, nor openssh
+"6.0":"squeeze",
+"7":"wheezy",
+"8":"jessie",
+"9":"stretch",
 
-
-# No ssh
-"18.04.6 LTS":"bionic",
-"19.10":"eoan",
-"20.04.6 LTS":"focal",
 
 
         {

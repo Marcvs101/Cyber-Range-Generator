@@ -13,10 +13,6 @@
                         "# Exit 0 non manda tutto il circo in errore",
                         "RUN apt update; exit 0"],
     "release_map":{
-        "6.0":"squeeze",
-        "7":"wheezy",
-        "8":"jessie",
-        "9":"stretch",
         "10":"buster",
         "11":"bullseye"
     }

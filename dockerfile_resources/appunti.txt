@@ -28,6 +28,7 @@ Abbiamo piu di quattro applicativi in croce!
 
 Porte non standard?
 
+
 Abbiamo anche diversi sistemi operativi
 - Ununtu linux
 - Debian linux
@@ -44,10 +45,14 @@ La razionale che sto seguendo è:
 
 Problemi
 
-Versioni vecchie di firefox non hanno la modalità headless e non partono
-Su alcune versioni vecchie di ubuntu firefox e postgres non si installano - Ho risolto rimuovendo la versione colpevole dallo stack
+Debian sotto la versione 10 non funziona
+La http (si, la chiamata a sistema gestita dal kernel) va in segmentation fault
+Su stackoverflow si puntano le dita verso il kernel, verso windows e verso wsl
 
-Chromium è complicato da installare, quindi l'ho tolto
+Versioni vecchie di firefox non hanno la modalità headless e non partono. Ma non è un problema, lo scanner le vede
+Su alcune versioni vecchie di ubuntu firefox e postgres non si installano - Ho risolto rendendo firefox e postgres opzionali
+
+Chromium è complicato da far partire, l'ho tenuto, lo scanner lo vede ma non partirà MAI
 
 ActiveMQ non si installa facilmente
 L'archivio su apt install è incompleto e ti dicono di scaricare uno zip con una versione specifica
@@ -58,9 +63,11 @@ A partire partono e lavorano benissimo in locale
 So che possono ascoltare anche su una porta
 Ho seguito i sacri testi
 Ho fatto TUTTO, ma non ci si bindano
+Però le probe locali li vedono, quindi ritorno ad essere felice
 
 
 Aggiornamento
 
 Specificando delle credenziali ssh, nessus gira le probe locali
+Le probe locali osservano il registro delle applicazioni e matchano con un registro interno
 Le probe locali restituiscono tante belle cose
