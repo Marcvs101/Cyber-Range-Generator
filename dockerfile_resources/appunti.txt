@@ -21,9 +21,9 @@ Abbiamo piu di quattro applicativi in croce!
 - mongo
 - squirrelmail
 - chromium
+- libreoffice
 
 - eth vm? ** 
-- open office?
 - pdf reader?
 
 Porte non standard?

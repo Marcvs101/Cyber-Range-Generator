@@ -219,6 +219,15 @@
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install chroumium-browser -y --force-yes; exit 0"],
             "run_commands":["chromium-browser -v"]
+        },
+        {
+            "id":"libreoffice",
+            "name":"libreoffice",
+            "required":false,
+            "ports":[],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install libreoffice -y --force-yes; exit 0"],
+            "run_commands":["libreoffice -v"]
         }
         
     ]
