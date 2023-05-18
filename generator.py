@@ -14,8 +14,7 @@ SERVICES_PER_HOST_NUMBER = 40
 NETWORK = "172.25.0.0/16"
 NETWORK_NAME = "cyber_range"
 NETWORK_OFFSET = 11
-SCANNER_1_ADDRESS = "172.25.0.10"
-SCANNER_2_ADDRESS = "172.25.0.9"
+SCANNER_ADDRESS = "172.25.0.10"
 
 OUTPUT_DIR = "generated/"
 RESOURCES_DIR = "dockerfile_resources/"
@@ -223,11 +222,8 @@ f.write("    ports:\n")
 f.write('     - "8835:8834"\n')
 f.write("    networks:\n")
 f.write("      "+NETWORK_NAME+":\n")
-f.write("        ipv4_address: "+SCANNER_1_ADDRESS+"\n")
+f.write("        ipv4_address: "+SCANNER_ADDRESS+"\n")
 f.write("\n")
-
-# # openvas scanner
-# TODO openvas
 
 # # hosts
 for host_id in host_to_service:
