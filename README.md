@@ -27,3 +27,14 @@ The structure of an application entry is the following
 - string: Dockerfile commands necessary to install the application 
 - entrypoint: Dockerfile CMD string. Not currently in use.
 - shell_commands: Shell commands necessary to run the application.
+
+## Adding new applications and operating systems
+The generator reads the files in the following folders:
+- dockerfile_resources/applications/
+- dockerfile_resources/operating_systems/
+
+These files are compiled in a eligible operating system list and an eligible application list.
+
+To add a new operating system, add a new json file in the dockerfile_resources/operating_systems/ folder.
+
+To add a new application, modify or add a json file in the dockerfile_resources/applications/ folder.
