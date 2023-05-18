@@ -213,8 +213,9 @@ for host_id in host_to_service:
 f = open(file=OUTPUT_DIR+"docker-compose.yml",mode="w",encoding="utf-8")
 f.write("version: '2'\n\n")
 
-# # nessus scanner
 f.write("services:\n")
+
+# # nessus scanner
 f.write("  scanner:\n")
 f.write("    image: tenableofficial/nessus:latest\n")
 f.write("    container_name: scanner1\n")
@@ -226,16 +227,7 @@ f.write("        ipv4_address: "+SCANNER_1_ADDRESS+"\n")
 f.write("\n")
 
 # # openvas scanner
-f.write("services:\n")
-f.write("  scanner:\n")
-f.write("    image: greenbone/openvas-scanner:latest\n")
-f.write("    container_name: scanner2\n")
-f.write("    ports:\n")
-f.write('     - "8835:8834"\n')
-f.write("    networks:\n")
-f.write("      "+NETWORK_NAME+":\n")
-f.write("        ipv4_address: "+SCANNER_2_ADDRESS+"\n")
-f.write("\n")
+# TODO openvas
 
 # # hosts
 for host_id in host_to_service:
