@@ -8,7 +8,7 @@
             "ports":[22],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "ENV TZ=Etc/UTC",
-                                "RUN apt install openssh-server -y",
+                                "RUN apt install openssh-server -y --force-yes",
                                 "RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo test",
                                 "RUN echo \"test:test\" | chpasswd",
                                 "RUN service ssh start"],
@@ -19,8 +19,8 @@
             "name":"apache2",
             "required":false,
             "ports":[80],
-            "install_commands":["RUN apt install apache2 -y",
-                                "RUN apt install apache2-utils -y"],
+            "install_commands":["RUN apt install apache2 -y --force-yes",
+                                "RUN apt install apache2-utils -y --force-yes"],
             "run_commands":["apache2ctl -D FOREGROUND"]
         },
         {
@@ -28,7 +28,7 @@
             "name":"nginx",
             "required":false,
             "ports":[80],
-            "install_commands":["RUN apt install nginx -y"],
+            "install_commands":["RUN apt install nginx -y --force-yes"],
             "run_commands":["service nginx start"]
         },
         {
@@ -36,7 +36,7 @@
             "name":"vsftpd",
             "required":false,
             "ports":[20,21],
-            "install_commands":["RUN apt install vsftpd -y",
+            "install_commands":["RUN apt install vsftpd -y --force-yes",
                                 "RUN useradd -m testuser",
                                 "RUN echo \"testuser:testuser\" | chpasswd"],
             "run_commands":["/usr/sbin/vsftpd"]
@@ -48,7 +48,7 @@
             "ports":[5432],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "ENV TZ=Etc/UTC",
-                                "RUN apt install postgresql postgresql-contrib -y",
+                                "RUN apt install postgresql postgresql-contrib -y --force-yes",
                                 "RUN cd /etc/postgresql/*; echo \"listen_addresses = '*'\" >> main/postgresql.conf",
                                 "RUN cd /etc/postgresql/*; echo \"# TYPE DATABASE USER ADDRESS METHOD\" >> main/pg_hba.conf",
                                 "RUN cd /etc/postgresql/*; echo \"host all all 0.0.0.0/0 md5\" >> main/pg_hba.conf",
@@ -60,7 +60,7 @@
             "name":"mariadb",
             "required":false,
             "ports":[3306],
-            "install_commands":["RUN apt install mariadb-server -y",
+            "install_commands":["RUN apt install mariadb-server -y --force-yes",
                                 "RUN sed -i \"s/# port =/port =/\" /etc/mysql/my.cnf",
                                 "RUN sed -i \"s/socket =/# socket =/\" /etc/mysql/my.cnf",
                                 "RUN sed -i \"s/# port =/port =/\" /etc/mysql/mariadb.cnf",
@@ -75,7 +75,7 @@
             "name":"firefox browser",
             "required":false,
             "ports":[],
-            "install_commands":["RUN apt install firefox -y; exit 0"],
+            "install_commands":["RUN apt install firefox -y --force-yes; exit 0"],
             "run_commands":["firefox --headless"]
         },
         {
@@ -84,7 +84,7 @@
             "required":false,
             "ports":[25],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install postfix -y; exit 0"],
+                                "RUN apt install postfix -y --force-yes; exit 0"],
             "run_commands":["postfix start"]
         },
         {
@@ -93,7 +93,7 @@
             "required":false,
             "ports":[3306],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install mysql-server -y; exit 0"],
+                                "RUN apt install mysql-server -y --force-yes; exit 0"],
             "run_commands":["service mysql start"]
         },
         {
@@ -103,7 +103,7 @@
             "ports":[5672,15672],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash",
-                                "RUN apt install rabbitmq-server -y; exit 0",
+                                "RUN apt install rabbitmq-server -y --force-yes; exit 0",
                                 "RUN service rabbitmq-server start; exit 0",
                                 "RUN rabbitmq-plugins enable rabbitmq_management; exit 0"],
             "run_commands":["service rabbitmq-server start","rabbitmq-plugins enable rabbitmq_management"]
@@ -114,7 +114,7 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install php -y; exit 0"],
+                                "RUN apt install php -y --force-yes; exit 0"],
             "run_commands":["php -v"]
         },
         {
@@ -123,7 +123,7 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install python -y; exit 0"],
+                                "RUN apt install python -y --force-yes; exit 0"],
             "run_commands":["python -m SimpleHTTPServer 8088","python -m http.server 8088 --bind 0.0.0.0"]
         },
         {
@@ -132,8 +132,8 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install default-jre -y; exit 0",
-                                "RUN apt install default-jdk -y; exit 0"],
+                                "RUN apt install default-jre -y --force-yes; exit 0",
+                                "RUN apt install default-jdk -y --force-yes; exit 0"],
             "run_commands":["java -v"]
         },
         {
@@ -142,8 +142,8 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install nodejs -y",
-                                "RUN apt install npm -y"],
+                                "RUN apt install nodejs -y --force-yes",
+                                "RUN apt install npm -y --force-yes"],
             "run_commands":["nodejs -v"]
         },
         {
@@ -152,7 +152,7 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install procmail -y"],
+                                "RUN apt install procmail -y --force-yes"],
             "run_commands":["procmail -v"]
         },
         {
@@ -161,8 +161,8 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install ruby -y; exit 0",
-                                "RUN apt install ruby-full -y; exit 0"],
+                                "RUN apt install ruby -y --force-yes; exit 0",
+                                "RUN apt install ruby-full -y --force-yes; exit 0"],
             "run_commands":["ruby --version"]
         },
         {
@@ -171,7 +171,7 @@
             "required":false,
             "ports":[5559],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install samba -y",
+                                "RUN apt install samba -y --force-yes",
                                 "RUN echo '[sambashare]' >> /etc/samba/smb.conf",
                                 "RUN echo 'comment = Samba on Ubuntu' >> /etc/samba/smb.conf",
                                 "RUN echo 'path = /' >> /etc/samba/smb.conf",
@@ -185,7 +185,7 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install thunderbird -y"],
+                                "RUN apt install thunderbird -y --force-yes"],
             "run_commands":["thunderbird -v"]
         },
         {
@@ -194,12 +194,12 @@
             "required":false,
             "ports":[27017],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install curl -y",
-                                "RUN apt install gnupg -y",
+                                "RUN apt install curl -y --force-yes",
+                                "RUN apt install gnupg -y --force-yes",
                                 "RUN curl -fsSL https://www.mongodb.org/static/pgp/server-2.2.asc | apt-key add -",
                                 "RUN echo 'deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu RELEASE/mongodb-org/4.4 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-2.2.list",
                                 "RUN apt update; exit 0",
-                                "RUN apt install mongodb-org -y; exit 0"],
+                                "RUN apt install mongodb-org -y --force-yes; exit 0"],
             "run_commands":["service mongod start"]
         },
         {
@@ -208,7 +208,7 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install squirrelmail -y; exit 0"],
+                                "RUN apt install squirrelmail -y --force-yes; exit 0"],
             "run_commands":["squirrelmail -v"]
         },
         {
@@ -217,7 +217,7 @@
             "required":false,
             "ports":[],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
-                                "RUN apt install chroumium-browser -y; exit 0"],
+                                "RUN apt install chroumium-browser -y --force-yes; exit 0"],
             "run_commands":["chromium-browser -v"]
         }
         
