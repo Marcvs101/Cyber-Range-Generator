@@ -199,8 +199,8 @@
                                 "RUN curl -fsSL https://www.mongodb.org/static/pgp/server-2.2.asc | apt-key add -",
                                 "RUN echo 'deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu RELEASE/mongodb-org/4.4 multiverse' | tee /etc/apt/sources.list.d/mongodb-org-2.2.list",
                                 "RUN apt update; exit 0",
-                                "RUN apt install mongodb-org -y --force-yes; exit 0"],
-            "run_commands":["service mongod start"]
+                                "RUN apt install mongodb -y --force-yes; exit 0"],
+            "run_commands":["service mongodb start"]
         },
         {
             "id":"squirrelmail",
