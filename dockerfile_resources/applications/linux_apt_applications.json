@@ -228,6 +228,24 @@
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install libreoffice -y --force-yes; exit 0"],
             "run_commands":["libreoffice -v"]
+        },
+        {
+            "id":"okular",
+            "name":"okular",
+            "required":false,
+            "ports":[],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install okular -y --force-yes; exit 0"],
+            "run_commands":["okular -v"]
+        },
+        {
+            "id":"xpdf",
+            "name":"xpdf",
+            "required":false,
+            "ports":[],
+            "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
+                                "RUN apt install xpdf -y --force-yes; exit 0"],
+            "run_commands":["xpdf -v"]
         }
         
     ]
