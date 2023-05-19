@@ -116,13 +116,13 @@ for host_id in host_to_operating_system:
                 # application type
                 if host_to_type[host_id] == "office":
                     if ("office" in application["tags"]) or ("client" in application["tags"]):
-                        pass
-                elif host_to_type[host_id] == "developer":
+                        selectable_services.append(application)
+                elif host_to_type[host_id] == "development":
                     if ("development" in application["tags"]) or ("client" in application["tags"]):
-                        pass
+                        selectable_services.append(application)
                 elif host_to_type[host_id] == "server":
                     if ("server" in application["tags"]) or ("database" in application["tags"]):
-                        pass
+                        selectable_services.append(application)
                 else:
                     selectable_services.append(application)
     
