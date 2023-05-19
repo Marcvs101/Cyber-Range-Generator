@@ -6,6 +6,7 @@
             "name":"openssh",
             "required":true,
             "ports":[22],
+            "tags":["server"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "ENV TZ=Etc/UTC",
                                 "RUN apt install openssh-server -y --force-yes",
@@ -19,6 +20,7 @@
             "name":"apache2",
             "required":false,
             "ports":[80],
+            "tags":["server"],
             "install_commands":["RUN apt install apache2 -y --force-yes",
                                 "RUN apt install apache2-utils -y --force-yes"],
             "run_commands":["apache2ctl -D FOREGROUND"]
@@ -28,6 +30,7 @@
             "name":"nginx",
             "required":false,
             "ports":[80],
+            "tags":["server"],
             "install_commands":["RUN apt install nginx -y --force-yes"],
             "run_commands":["service nginx start"]
         },
@@ -36,6 +39,7 @@
             "name":"vsftpd",
             "required":false,
             "ports":[20,21],
+            "tags":["server"],
             "install_commands":["RUN apt install vsftpd -y --force-yes",
                                 "RUN useradd -m testuser",
                                 "RUN echo \"testuser:testuser\" | chpasswd"],
@@ -46,6 +50,7 @@
             "name":"postgresql",
             "required":false,
             "ports":[5432],
+            "tags":["database"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "ENV TZ=Etc/UTC",
                                 "RUN apt install postgresql postgresql-contrib -y --force-yes",
@@ -60,6 +65,7 @@
             "name":"mariadb",
             "required":false,
             "ports":[3306],
+            "tags":["database"],
             "install_commands":["RUN apt install mariadb-server -y --force-yes",
                                 "RUN sed -i \"s/# port =/port =/\" /etc/mysql/my.cnf",
                                 "RUN sed -i \"s/socket =/# socket =/\" /etc/mysql/my.cnf",
@@ -75,6 +81,7 @@
             "name":"firefox browser",
             "required":false,
             "ports":[],
+            "tags":["client"],
             "install_commands":["RUN apt install firefox -y --force-yes; exit 0"],
             "run_commands":["firefox --headless"]
         },
@@ -83,6 +90,7 @@
             "name":"postfix",
             "required":false,
             "ports":[25],
+            "tags":["server"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install postfix -y --force-yes; exit 0"],
             "run_commands":["postfix start"]
@@ -92,6 +100,7 @@
             "name":"mysql",
             "required":false,
             "ports":[3306],
+            "tags":["database"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install mysql-server -y --force-yes; exit 0"],
             "run_commands":["service mysql start"]
@@ -101,6 +110,7 @@
             "name":"rabbitmq",
             "required":false,
             "ports":[5672,15672],
+            "tags":["server"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.deb.sh | bash",
                                 "RUN apt install rabbitmq-server -y --force-yes; exit 0",
@@ -113,6 +123,7 @@
             "name":"php",
             "required":false,
             "ports":[],
+            "tags":["development"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install php -y --force-yes; exit 0"],
             "run_commands":["php -v"]
@@ -122,6 +133,7 @@
             "name":"python",
             "required":false,
             "ports":[],
+            "tags":["development"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install python -y --force-yes; exit 0"],
             "run_commands":["python -m SimpleHTTPServer 8088","python -m http.server 8088 --bind 0.0.0.0"]
@@ -131,6 +143,7 @@
             "name":"java",
             "required":false,
             "ports":[],
+            "tags":["development"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install default-jre -y --force-yes; exit 0",
                                 "RUN apt install default-jdk -y --force-yes; exit 0"],
@@ -141,6 +154,7 @@
             "name":"nodejs",
             "required":false,
             "ports":[],
+            "tags":["database"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install nodejs -y --force-yes",
                                 "RUN apt install npm -y --force-yes"],
@@ -151,6 +165,7 @@
             "name":"procmail",
             "required":false,
             "ports":[],
+            "tags":["client"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install procmail -y --force-yes"],
             "run_commands":["procmail -v"]
@@ -160,6 +175,7 @@
             "name":"ruby",
             "required":false,
             "ports":[],
+            "tags":["development"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install ruby -y --force-yes; exit 0",
                                 "RUN apt install ruby-full -y --force-yes; exit 0"],
@@ -170,6 +186,7 @@
             "name":"samba",
             "required":false,
             "ports":[5559],
+            "tags":["server"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install samba -y --force-yes",
                                 "RUN echo '[sambashare]' >> /etc/samba/smb.conf",
@@ -184,6 +201,7 @@
             "name":"thunderbird",
             "required":false,
             "ports":[],
+            "tags":["client"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install thunderbird -y --force-yes"],
             "run_commands":["thunderbird -v"]
@@ -193,6 +211,7 @@
             "name":"mongo",
             "required":false,
             "ports":[27017],
+            "tags":["database"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install curl -y --force-yes",
                                 "RUN apt install gnupg -y --force-yes",
@@ -207,6 +226,7 @@
             "name":"squirrelmail",
             "required":false,
             "ports":[],
+            "tags":["server"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install squirrelmail -y --force-yes; exit 0"],
             "run_commands":["squirrelmail -v"]
@@ -216,6 +236,7 @@
             "name":"chromium",
             "required":false,
             "ports":[],
+            "tags":["client"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install chroumium-browser -y --force-yes; exit 0"],
             "run_commands":["chromium-browser -v"]
@@ -225,6 +246,7 @@
             "name":"libreoffice",
             "required":false,
             "ports":[],
+            "tags":["office"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install libreoffice -y --force-yes; exit 0"],
             "run_commands":["libreoffice -v"]
@@ -234,6 +256,7 @@
             "name":"okular",
             "required":false,
             "ports":[],
+            "tags":["office"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install okular -y --force-yes; exit 0"],
             "run_commands":["okular -v"]
@@ -243,6 +266,7 @@
             "name":"xpdf",
             "required":false,
             "ports":[],
+            "tags":["office"],
             "install_commands":["ARG DEBIAN_FRONTEND=noninteractive",
                                 "RUN apt install xpdf -y --force-yes; exit 0"],
             "run_commands":["xpdf -v"]

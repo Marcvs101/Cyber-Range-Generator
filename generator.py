@@ -8,7 +8,10 @@ import os
 # configuration
 RANDOMSEED = 101
 
-HOST_NUMBER = 4
+HOST_NUMBER_GENERIC = 2
+HOST_NUMBER_OFFICE = 2
+HOST_NUMBER_DEVELOPMENT = 2
+HOST_NUMBER_SERVER = 2
 SERVICES_PER_HOST_NUMBER = 40
 
 NETWORK = "172.25.0.0/16"
@@ -51,11 +54,27 @@ for filename in os.listdir(RESOURCES_DIR+"operating_systems/"):
 
 
 # assign operating system
+host_to_type = dict()
 host_to_operating_system = dict()
 host_to_operating_system_id = dict()
-for host_number in range(HOST_NUMBER):
-    host_id = "host_"+str(host_number)
 
+for host_number in range(HOST_NUMBER_GENERIC):
+    host_id = "host_generic_"+str(host_number)
+    host_to_type[host_id] = "generic"
+
+for host_number in range(HOST_NUMBER_OFFICE):
+    host_id = "host_office_"+str(host_number)
+    host_to_type[host_id] = "office"
+
+for host_number in range(HOST_NUMBER_DEVELOPMENT):
+    host_id = "host_development_"+str(host_number)
+    host_to_type[host_id] = "development"
+
+for host_number in range(HOST_NUMBER_SERVER):
+    host_id = "host_server_"+str(host_number)
+    host_to_type[host_id] = "server"
+
+for host_id in host_to_type:
     chosen_os = random.choice(os_list)
     chosen_release = random.choice(list(chosen_os["release_map"].keys()))
 
@@ -94,7 +113,18 @@ for host_id in host_to_operating_system:
     for application_dict in application_list:
         if host_to_operating_system[host_id]["id"] in application_dict["os_id"]:
             for application in application_dict["application_list"]:
-                selectable_services.append(application)
+                # application type
+                if host_to_type[host_id] == "office":
+                    if ("office" in application["tags"]) or ("client" in application["tags"]):
+                        pass
+                elif host_to_type[host_id] == "developer":
+                    if ("development" in application["tags"]) or ("client" in application["tags"]):
+                        pass
+                elif host_to_type[host_id] == "server":
+                    if ("server" in application["tags"]) or ("database" in application["tags"]):
+                        pass
+                else:
+                    selectable_services.append(application)
     
     # sanity check
     target_services_per_host_number = SERVICES_PER_HOST_NUMBER
