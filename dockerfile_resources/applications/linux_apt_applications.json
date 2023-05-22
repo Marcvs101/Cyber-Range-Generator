@@ -6,7 +6,7 @@
             "name":"openssh",
             "required":true,
             "ports":[22],
-            "tags":["server"],
+            "tags":["server","client"],
             "install_commands":["ENV TZ=Etc/UTC",
                                 "RUN apt install openssh-server -y --force-yes",
                                 "RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo test",
