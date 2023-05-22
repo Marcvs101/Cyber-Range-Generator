@@ -210,6 +210,10 @@ for host_id in host_to_service:
         f.write(command+"\n")
     f.write("\n")
 
+    f.write("# Common prerequisites")
+    f.write("ARG DEBIAN_FRONTEND=noninteractive\n")
+    f.write("\n")
+
     # # applications
     for application in host_to_service[host_id]:
         f.write("# Install and configure "+application["name"]+"\n\n")
