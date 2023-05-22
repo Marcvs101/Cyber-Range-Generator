@@ -210,7 +210,7 @@ for host_id in host_to_service:
         f.write(command+"\n")
     f.write("\n")
 
-    f.write("# Common prerequisites")
+    f.write("# Common prerequisites\n")
     f.write("ARG DEBIAN_FRONTEND=noninteractive\n")
     f.write("\n")
 
