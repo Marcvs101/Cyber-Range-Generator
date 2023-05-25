@@ -287,27 +287,27 @@ os.mkdir(OUTPUT_DIR+"inventories")
 f = open(file=OUTPUT_DIR+"windows_get_raw_device_inventory.bat",mode="w",encoding="utf-8")
 f.write("@echo off\n\n")
 for host_id in host_to_service:
-    f.write("docker sbom generated_"+host_id+" --output "+host_id+"/raw_device_inventory.txt\n")
-    f.write("docker sbom generated_"+host_id+" --output inventories/"+host_to_network_address[host_id]+"_raw_device_inventory.txt\n")
+    f.write("docker sbom generated-"+host_id+" --output "+host_id+"/raw_device_inventory.txt\n")
+    f.write("docker sbom generated-"+host_id+" --output inventories/"+host_to_network_address[host_id]+"_raw_device_inventory.txt\n")
 f.close()
 
 f = open(file=OUTPUT_DIR+"windows_get_raw_vulnerability_inventory.bat",mode="w",encoding="utf-8")
 f.write("@echo off\n\n")
 for host_id in host_to_service:
-    f.write("docker scout cves generated_"+host_id+" -o "+host_id+"/raw_vulnerability_inventory.txt\n")
+    f.write("docker scout cves generated-"+host_id+" -o "+host_id+"/raw_vulnerability_inventory.txt\n")
 f.close()
 
 # inventory getters for linux
 f = open(file=OUTPUT_DIR+"linux_get_raw_device_inventory.sh",mode="w",encoding="utf-8")
 f.write("#!/bin/bash\n\n")
 for host_id in host_to_service:
-    f.write("docker sbom generated_"+host_id+" --output "+host_id+"/raw_device_inventory.txt\n")
-    f.write("docker sbom generated_"+host_id+" --output inventories/"+host_to_network_address[host_id]+"_raw_device_inventory.txt\n")
+    f.write("docker sbom generated-"+host_id+" --output "+host_id+"/raw_device_inventory.txt\n")
+    f.write("docker sbom generated-"+host_id+" --output inventories/"+host_to_network_address[host_id]+"_raw_device_inventory.txt\n")
 f.close()
 
 f = open(file=OUTPUT_DIR+"linux_get_raw_vulnerability_inventory.sh",mode="w",encoding="utf-8")
 f.write("#!/bin/bash\n\n")
 for host_id in host_to_service:
-    f.write("docker scout cves generated_"+host_id+" -o "+host_id+"/raw_vulnerability_inventory.txt\n")
+    f.write("docker scout cves generated-"+host_id+" -o "+host_id+"/raw_vulnerability_inventory.txt\n")
 f.close()
 #"""
